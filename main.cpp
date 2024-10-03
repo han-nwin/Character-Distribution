@@ -1,144 +1,73 @@
+/**
+* CS/SE 3345 - Programming Assignment 2 3 - Monkey Character Distribution
+* Lecturer: Andrew Nemec
+* Name: Tan Han Nguyen
+* NetID: TXN 200004
+* Date: October 1, 2024
+* Due Date: October 18, 2024
+*/ 
 #include <iostream>
-#include <algorithm>
 
-class AVLTree {
-private:
-    // AVL Tree Node
-    struct AvlNode {
-        int element;
-        AvlNode* left;
-        AvlNode* right;
-        int height;
+/**
+ * @struct AvlNode
+ * @brief Represents a node in the AVL Tree.
+ *
+ * The AvlNode struct is used to store individual elements of the AVL Tree. Each node contains an element (the key),
+ * pointers to its left and right children, and its height within the tree.
+ *
+ * @tparam Comparable The data type to store in the node, which must support comparison operators.
+ */
+template <typename Comparable>
+struct AvlNode {
+    Comparable element; //Any comparable types: int, float, double, char, std::string, or any custom comparable class or struct
+    AvlNode *left;
+    AvlNode *right;
+    int height;
 
-        AvlNode(int ele, AvlNode* lt = nullptr, AvlNode* rt = nullptr, int h = 0)
+    /**
+     * @brief Constructs an AVL Node.
+     * @param ele The element (key) to store in the node.
+     * @param lt Pointer to the left child node (defaults to nullptr).
+     * @param rt Pointer to the right child node (defaults to nullptr).
+     * @param h Height of the node (defaults to 0).
+     */
+    AvlNode(const Comparable& ele, AvlNode *lt = nullptr, AvlNode *rt = nullptr, int h = -1)
             : element(ele), left(lt), right(rt), height(h) {}
-    };
-
-    // Helper function to get the height of a node
-    int height(AvlNode* t) const {
-        return (t == nullptr) ? -1 : t->height;
-    }
-
-    // Function to balance the AVL tree
-    void balance(AvlNode*& t) {
-        static const int ALLOWED_IMBALANCE = 1;
-
-        if (t == nullptr) return;  // Empty node, nothing to balance
-
-        // Left-heavy
-        if (height(t->left) - height(t->right) > ALLOWED_IMBALANCE) {
-            if (height(t->left->left) >= height(t->left->right)) {
-                rotateWithLeftChild(t);  // Single rotation
-            } else {
-                doubleWithLeftChild(t);  // Double rotation
-            }
-        }
-        // Right-heavy
-        else if (height(t->right) - height(t->left) > ALLOWED_IMBALANCE) {
-            if (height(t->right->right) >= height(t->right->left)) {
-                rotateWithRightChild(t);  // Single rotation
-            } else {
-                doubleWithRightChild(t);  // Double rotation
-            }
-        }
-
-        // Update height after balancing
-        t->height = std::max(height(t->left), height(t->right)) + 1;
-    }
-
-    // Single rotation with left child
-    void rotateWithLeftChild(AvlNode*& k2) {
-        AvlNode* k1 = k2->left;
-        k2->left = k1->right;
-        k1->right = k2;
-
-        // Update heights
-        k2->height = std::max(height(k2->left), height(k2->right)) + 1;
-        k1->height = std::max(height(k1->left), height(k2)) + 1;
-
-        // Set new root
-        k2 = k1;
-    }
-
-    // Single rotation with right child
-    void rotateWithRightChild(AvlNode*& k2) {
-        AvlNode* k1 = k2->right;
-        k2->right = k1->left;
-        k1->left = k2;
-
-        // Update heights
-        k2->height = std::max(height(k2->left), height(k2->right)) + 1;
-        k1->height = std::max(height(k1->right), height(k2)) + 1;
-
-        // Set new root
-        k2 = k1;
-    }
-
-    // Double rotation with left child
-    void doubleWithLeftChild(AvlNode*& k3) {
-        rotateWithRightChild(k3->left);
-        rotateWithLeftChild(k3);
-    }
-
-    // Double rotation with right child
-    void doubleWithRightChild(AvlNode*& k3) {
-        rotateWithLeftChild(k3->right);
-        rotateWithRightChild(k3);
-    }
-
-    // Insert function
-    void insert(const int& x, AvlNode*& t) {
-        if (t == nullptr)
-            t = new AvlNode(x);
-        else if (x < t->element)
-            insert(x, t->left);
-        else if (t->element < x)
-            insert(x, t->right);
-
-        balance(t);  // Balance the tree after insertion
-    }
-
-    // In-order display
-    void display(AvlNode* root) const {
-        if (root != nullptr) {
-            display(root->left);
-            std::cout << root->element << " ";
-            display(root->right);
-        }
-    }
-
-    // Root node of the AVL Tree
-    AvlNode* root;
-
-public:
-    // Constructor
-    AVLTree() : root(nullptr) {}
-
-    // Public method to insert an element
-    void insert(int x) {
-        insert(x, root);
-    }
-
-    // Public method to display the tree (in-order traversal)
-    void display() const {
-        display(root);
-        std::cout << std::endl;
-    }
 };
 
-int main() {
-    AVLTree tree;
+/**
+ * @class AVLTree
+ * @brief Implements a self-balancing Binary Search Tree using the AVL Tree algorithm.
+ *
+ * The AVLTree class provides an efficient binary search tree where the tree automatically balances itself
+ * after each insertion to ensure that it remains balanced. This balance ensures that the operations
+ * like insertion, deletion, and lookup are performed in O(log n) time. The AVLTree maintains the height-balanced
+ * property, which states that the height difference between the left and right subtree of any node is no more than 1.
+ *
+ * The class supports operations such as insertion and in-order traversal. Balancing is performed using 
+ * rotations (single and double), and the height of each node is updated during insertion to maintain balance.
+ *
+ * @tparam Comparable The data type to store in the tree, which must support comparison operators.
+ */
+template <typename Comparable>
+class AVLTree {
+private:
+    AvlNode *root; // Pointer to the root node
 
-    // Insert elements into the AVL tree
-    tree.insert(20);
-    tree.insert(25);
-    tree.insert(15);
-    tree.insert(10);
-    tree.insert(5);
+    //Helper function declarations
+    int height(AvlNode *t) const;
 
-    // Display the AVL tree (in-order traversal)
-    std::cout << "In-order traversal of AVL tree: ";
-    tree.display();
+public:
+    /**
+     * @brief Constructs an empty AVL Tree.
+     */
+    AVLTree() : root(nullptr);
 
-    return 0;
-}
+    /**
+     * @brief Constructs an empty AVL Tree.
+     */
+    ~AVLTree() {
+        clear(root);
+    };
+
+};
