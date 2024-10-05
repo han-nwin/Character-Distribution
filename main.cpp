@@ -51,12 +51,6 @@ struct AvlNode {
  */
 template <typename Comparable>
 class AVLTree {
-private:
-    AvlNode *root; // Pointer to the root node
-
-    //Helper function declarations
-    int height(AvlNode *t) const;
-
 public:
     /**
      * @brief Constructs an empty AVL Tree.
@@ -69,5 +63,12 @@ public:
     ~AVLTree() {
         clear(root);
     };
+private:
+    AvlNode *root; // Pointer to the root node
+
+    //Helper function declarations
+    int height(AvlNode *t) const;
+
+
 
 };
