@@ -32,7 +32,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/roosterMac"
             ],
             "options": {
                 "cwd": "${fileDirname}"
