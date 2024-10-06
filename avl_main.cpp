@@ -7,8 +7,8 @@
 * Due Date: October 18, 2024
 */ 
 #include <iostream>
-
-
+#include <algorithm> 
+#include <vector>
 
 /**
  * @class AVLTree
@@ -28,6 +28,24 @@ template <typename Comparable>
 class AVLTree {
 private:
     /**
+     * @struct ValueCount
+     * @brief Store all values associated with the key and the count of each value association
+     *
+     * The ValueCount is used to stored associated values of each AvlNode
+     * Count how many time each value accociate with the AvlNode
+     */
+    struct ValueCount {
+        Comparable value;  // The value associated with the key
+        int count;  // The count of how many times the value is associated with the key
+
+         /**
+         * @brief Constructor
+         * @param Comparable v Reference to the value
+         * @param c count of the value initialized  = 0
+         */
+        ValueCount(const Comparable & v, int c) : value(v), count(c) {}
+    };
+    /**
      * @struct AvlNode
      * @brief Represents a node in the AVL Tree.
      *
@@ -35,7 +53,8 @@ private:
      * pointers to its left and right children, and its height within the tree.
      */
     struct AvlNode {
-        Comparable element; //Any comparable types: int, float, double, char, std::string, or any custom comparable class or struct
+        Comparable key; //Any comparable types: int, float, double, char, std::string, or any custom comparable class or struct
+        std::vector<ValueCount> value_count; // Vector of values and their counts
         AvlNode *left;
         AvlNode *right;
         int height;
@@ -47,9 +66,13 @@ private:
      * @param rt Pointer to the right child node (defaults to nullptr).
      * @param h Height of the node (defaults to 0).
      */
-    AvlNode(const Comparable& ele, AvlNode *lt = nullptr, AvlNode *rt = nullptr, int h = -1)
-            : element(ele), left(lt), right(rt), height(h) {}
-};
+    AvlNode(const Comparable& key, const Comparable& value, AvlNode *lt = nullptr, AvlNode *rt = nullptr, int h = -1)
+            : key(key), left(lt), right(rt), height(h) 
+            { 
+                value_count.push_back(ValueCount(value, 1)); //Push the value a initalize its count
+            }
+    };
+    
     /**
      * @brief Pointer to the root node of the AVLTree
      */
@@ -80,27 +103,59 @@ private:
         }
     }
     /**
-     * @brief Recursively inserts a new element into the subtree rooted at the given node.
-     *
-     * This function inserts the element into the correct position in the subtree while maintaining the binary search
-     * tree property. After insertion, the function calls `balance` to ensure that the subtree remains balanced.
-     *
-     * @param x The element to insert.
-     * @param t Reference to the pointer to the root of the subtree in which to insert the element.
+     * @brief Private function to return the size of the tree (number of node) recursively
+     * Function is marked as const to ensure no modification is performed in the Tree structure
+     * @param AvlNode * t
+     * @return int size
      */
-    void insert(const Comparable & x, AvlNode* & t){
-        if(t == nullptr) {
-            t = new AvlNode(x, nullptr, nullptr);
+    int size(AvlNode *t) const {
+        if (t == nullptr) {
+            return 0;
         }
-        else if (x < t->element){
-            insert(x, t->left);
+        else {
+            return (size(t->left) + size(t->right) +  1);
         }
-        else if (x > t->element){
-            insert(x, t->right);
-        }
-        balance(t);
-
     }
+    /**
+    * @brief Recursively inserts a new key and value into the subtree rooted at the given node.
+    *
+    * This function inserts the key and its associated value into the correct position in the subtree while maintaining the
+    * binary search tree property. If the key already exists, it updates the value_count vector by adding or updating the value.
+    * After insertion, the function calls `balance` to ensure that the subtree remains balanced.
+    *
+    * @param x The key to insert.
+    * @param v The associated value for the key.
+    * @param t Reference to the pointer to the root of the subtree in which to insert the key-value pair.
+    */
+    void insert(const Comparable & x, const Comparable & v, AvlNode* & t) {
+        if (t == nullptr) {
+            // If no node exists, create a new node with the key and value
+            t = new AvlNode(x, v);
+        }
+        else if (x < t->key) {
+            insert(x, v, t->left);  // Insert into the left subtree
+        }
+        else if (x > t->key) {
+            insert(x, v, t->right);  // Insert into the right subtree
+        }
+        // If the key already exists, check for the value in value_count
+        else {
+            bool valueExists = false;
+            for (auto & vc : t->value_count) {
+                if (vc.value == v) {
+                    vc.count++;  // Increment the count if the value exists
+                    valueExists = true;
+                    break;
+                }
+            }
+            if (valueExists == false) {
+                // If the value does not exist, add it to the value_count vector with count 1
+                t->value_count.push_back(ValueCount(v, 1));
+            }
+        }
+        balance(t);  // Balance the subtree after insertion
+    }
+
     static const int ALLOWED_IMBALANCE = 1;
      /**
      * @brief Balances the subtree rooted at the given node.
@@ -183,19 +238,26 @@ private:
     }
 
     /**
-     * @brief Private method that
-     * Traverses the subtree rooted at the given node 
-     * Recursively performs an in-order traversal of the tree
-     * Display elements in sorted order (left - root - right)
-     * @note This function is marked as const to prevent modification to the internal structure of the AVLTree
-     *
-     * @param root Pointer to the root of the subtree to display.
+     * @brief Private method that traverses the subtree rooted at the given node.
+     * Recursively performs an in-order traversal of the tree.
+     * Displays keys, values, and their counts in sorted order (left - root - right).
+     * @param AvlNode root: Pointer to the root of the subtree to display.
      */
-    void display(AvlNode * root) const{
-        if(root != nullptr){
-            display(root->left);
-            std::cout << root->element << " ";
-            display(root->right);
+    void display(AvlNode* root) const {
+        if (root != nullptr) {
+            display(root->left);  // Traverse the left subtree
+
+            // Display the key
+            std::cout << "Key: " << root->key << " -> ";
+
+            // Display all values and their counts for this key
+            std::cout << "Values and counts: ";
+            for (const auto& vc : root->value_count) {
+                std::cout << "[Value: " << vc.value << ", Count: " << vc.count << "] ";
+            }
+            std::cout << std::endl;
+
+            display(root->right);  // Traverse the right subtree
         }
     }
 
@@ -215,14 +277,20 @@ public:
 
     // PUBLIC METHOD //
     /**
+     * @brief Function that return number of keys in the Avl Tree
+     */
+    int size()const;
+
+    /**
      * @brief Inserts an element into the AVL Tree.
      *
      * This function inserts the element into the AVL Tree, ensuring that the tree remains balanced after insertion.
      * The element is placed based on binary search tree insertion rules.
      *
-     * @param x The element to insert into the tree.
+     * @param Comparable x The key to insert into the tree.
+     * @param Comparable v The value of the key
      */
-    void insert(const Comparable& x);
+    void insert(const Comparable& x, const Comparable& v);
 
     /**
      * @brief Public method that displays the AVL Tree in in-order traversal.
@@ -233,12 +301,17 @@ public:
 };
 
 //***IMPLEMENTATION OF PUBLIC METHOD***//
-//Implementation of public insert
+//Implementation of public insert(key,value)
 template<typename Comparable>
-void AVLTree<Comparable>::insert(const Comparable & x){
-    insert(x,this->root);
+void AVLTree<Comparable>::insert(const Comparable & x, const Comparable & v){
+    insert(x, v, this->root);
 }
-//Implementation of public display
+//Implementation of public size()
+template<typename Comparable>
+int AVLTree<Comparable>::size()const{
+    return size(this->root);
+}
+//Implementation of public display()
 template<typename Comparable>
 void AVLTree<Comparable>::display() const {
     if (this->root == nullptr) {
@@ -252,30 +325,44 @@ void AVLTree<Comparable>::display() const {
 
 
 int main() {
-    // Use the AVL tree for integers
-    AVLTree<int> tree;
+    // Test the AVL tree for integers
+    AVLTree<int> intTree;
 
-    tree.insert(20);
-    tree.insert(25);
-    tree.insert(15);
-    tree.insert(10);
-    tree.insert(5);
-    tree.insert(8);
-    tree.insert(30);
-    tree.insert(35);
+    // Insert integer keys with associated values
+    intTree.insert(20, 1);
+    intTree.insert(25, 2);
+    intTree.insert(15, 3);
+    intTree.insert(10, 4);
+    intTree.insert(50, 5);
+    intTree.insert(80, 6);
+    intTree.insert(30, 7);
+    intTree.insert(35, 8);
 
-    std::cout << "In-order traversal of integer AVL tree: ";
-    tree.display();
+    // Insert some duplicate values to check count increments
+    intTree.insert(20, 1); // Increment count for value 1 under key 20
+    intTree.insert(50, 5); // Increment count for value 5 under key 50
 
-    // Use the AVL tree for strings
+    std::cout << "In-order traversal of integer AVL tree with values and counts:\n";
+    intTree.display();
+    std::cout << "SIZE: " << intTree.size() << std::endl;
+
+    // Test the AVL tree for strings
     AVLTree<std::string> stringTree;
-    stringTree.insert("banana");
-    stringTree.insert("apple");
-    stringTree.insert("orange");
 
-    std::cout << "In-order traversal of string AVL tree: ";
+    // Insert string keys with associated string values
+    stringTree.insert("banana", "ba");
+    stringTree.insert("apple", "ap");
+    stringTree.insert("orange", "or");
+
+    // Insert some duplicate values to check count increments
+    stringTree.insert("banana", "ba"); // Increment count for "ba" under "banana"
+    stringTree.insert("orange", "or"); // Increment count for "or" under "orange"
+
+    std::cout << "In-order traversal of string AVL tree with values and counts:\n";
     stringTree.display();
+    std::cout << "SIZE: " << stringTree.size() << std::endl;
 
     return 0;
 }
+
 
