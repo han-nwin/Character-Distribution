@@ -116,6 +116,19 @@ private:
             return (size(t->left) + size(t->right) +  1);
         }
     }
+
+    /**
+     * @brief Private function to check if the avl tree rooted at node t
+     * Function is marked as const to ensure no modification is performed on the tree structure
+     * @param AvlNode t
+     * @return True if empty, False if not empty
+     */
+    bool empty(AvlNode * t) const{
+        if (t == nullptr){
+            return true;
+        }
+        else return false;
+    }
     /**
     * @brief Recursively inserts a new key and value into the subtree rooted at the given node.
     *
@@ -282,6 +295,11 @@ public:
     int size()const;
 
     /**
+     * @brief Function that return True if the tree is empty, and False otherwise
+     */
+    bool empty() const;
+
+    /**
      * @brief Inserts an element into the AVL Tree.
      *
      * This function inserts the element into the AVL Tree, ensuring that the tree remains balanced after insertion.
@@ -311,6 +329,11 @@ template<typename Comparable>
 int AVLTree<Comparable>::size()const{
     return size(this->root);
 }
+//Implementation of public empty()
+template<typename Comparable>
+bool AVLTree<Comparable>::empty() const {
+    return empty(this->root);
+}
 //Implementation of public display()
 template<typename Comparable>
 void AVLTree<Comparable>::display() const {
@@ -327,6 +350,7 @@ void AVLTree<Comparable>::display() const {
 int main() {
     // Test the AVL tree for integers
     AVLTree<int> intTree;
+    std::cout << "Empty? "<< intTree.empty() << std::endl;
 
     // Insert integer keys with associated values
     intTree.insert(20, 1);
@@ -345,9 +369,11 @@ int main() {
     std::cout << "In-order traversal of integer AVL tree with values and counts:\n";
     intTree.display();
     std::cout << "SIZE: " << intTree.size() << std::endl;
+    std::cout << "Empty? "<< intTree.empty() << std::endl;
 
     // Test the AVL tree for strings
     AVLTree<std::string> stringTree;
+    std::cout << "Empty? "<< stringTree.empty() << std::endl;
 
     // Insert string keys with associated string values
     stringTree.insert("banana", "ba");
@@ -361,6 +387,7 @@ int main() {
     std::cout << "In-order traversal of string AVL tree with values and counts:\n";
     stringTree.display();
     std::cout << "SIZE: " << stringTree.size() << std::endl;
+    std::cout << "Empty? "<< stringTree.empty() << std::endl;
 
     return 0;
 }
