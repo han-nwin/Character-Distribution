@@ -24,7 +24,7 @@
  *
  * @tparam Comparable The data type to store in the tree, which must support comparison operators.
  */
-template <typename Comparable>
+template <typename KeyType, typename ValueType>
 class AVLTree {
 private:
     /**
@@ -35,7 +35,7 @@ private:
      * Count how many time each value accociate with the AvlNode
      */
     struct ValueCount {
-        Comparable value;  // The value associated with the key
+        ValueType value;  // The value associated with the key
         int count;  // The count of how many times the value is associated with the key
 
          /**
@@ -43,7 +43,7 @@ private:
          * @param Comparable v Reference to the value
          * @param c count of the value initialized  = 0
          */
-        ValueCount(const Comparable & v, int c) : value(v), count(c) {}
+        ValueCount(const ValueType & v, int c) : value(v), count(c) {}
     };
     /**
      * @struct AvlNode
@@ -53,7 +53,7 @@ private:
      * pointers to its left and right children, and its height within the tree.
      */
     struct AvlNode {
-        Comparable key; //Any comparable types: int, float, double, char, std::string, or any custom comparable class or struct
+        KeyType key; //Any comparable types: int, float, double, char, std::string, or any custom comparable class or struct
         std::vector<ValueCount> value_count; // Vector of values and their counts
         AvlNode *left;
         AvlNode *right;
@@ -66,7 +66,7 @@ private:
      * @param rt Pointer to the right child node (defaults to nullptr).
      * @param h Height of the node (defaults to 0).
      */
-    AvlNode(const Comparable& key, const Comparable& value, AvlNode *lt = nullptr, AvlNode *rt = nullptr, int h = -1)
+    AvlNode(const KeyType & key, const ValueType & value, AvlNode *lt = nullptr, AvlNode *rt = nullptr, int h = -1)
             : key(key), left(lt), right(rt), height(h) 
             { 
                 value_count.push_back(ValueCount(value, 1)); //Push the value a initalize its count
@@ -136,11 +136,11 @@ private:
     * binary search tree property. If the key already exists, it updates the value_count vector by adding or updating the value.
     * After insertion, the function calls `balance` to ensure that the subtree remains balanced.
     *
-    * @param x The key to insert.
-    * @param v The associated value for the key.
-    * @param t Reference to the pointer to the root of the subtree in which to insert the key-value pair.
+    * @param KeyType x The key to insert.
+    * @param ValueType v The associated value for the key.
+    * @param AvlNode t Reference to the pointer to the root of the subtree in which to insert the key-value pair.
     */
-    void insert(const Comparable & x, const Comparable & v, AvlNode* & t) {
+    void insert(const KeyType & x, const ValueType & v, AvlNode* & t) {
         if (t == nullptr) {
             // If no node exists, create a new node with the key and value
             t = new AvlNode(x, v);
@@ -305,10 +305,10 @@ public:
      * This function inserts the element into the AVL Tree, ensuring that the tree remains balanced after insertion.
      * The element is placed based on binary search tree insertion rules.
      *
-     * @param Comparable x The key to insert into the tree.
-     * @param Comparable v The value of the key
+     * @param KeyType x The key to insert into the tree.
+     * @param ValueType v The value of the key
      */
-    void insert(const Comparable& x, const Comparable& v);
+    void insert(const KeyType & x, const ValueType & v);
 
     /**
      * @brief Public method that displays the AVL Tree in in-order traversal.
@@ -319,28 +319,30 @@ public:
 };
 
 //***IMPLEMENTATION OF PUBLIC METHOD***//
-//Implementation of public insert(key,value)
-template<typename Comparable>
-void AVLTree<Comparable>::insert(const Comparable & x, const Comparable & v){
+// Implementation of public insert(key, value)
+template <typename KeyType, typename ValueType>
+void AVLTree<KeyType, ValueType>::insert(const KeyType & x, const ValueType & v) {
     insert(x, v, this->root);
 }
-//Implementation of public size()
-template<typename Comparable>
-int AVLTree<Comparable>::size()const{
+
+// Implementation of public size()
+template <typename KeyType, typename ValueType>
+int AVLTree<KeyType, ValueType>::size() const {
     return size(this->root);
 }
-//Implementation of public empty()
-template<typename Comparable>
-bool AVLTree<Comparable>::empty() const {
+
+// Implementation of public empty()
+template <typename KeyType, typename ValueType>
+bool AVLTree<KeyType, ValueType>::empty() const {
     return empty(this->root);
 }
-//Implementation of public display()
-template<typename Comparable>
-void AVLTree<Comparable>::display() const {
+
+// Implementation of public display()
+template <typename KeyType, typename ValueType>
+void AVLTree<KeyType, ValueType>::display() const {
     if (this->root == nullptr) {
         std::cout << "The tree is empty" << std::endl;
-    }
-    else {
+    } else {
         display(this->root);
         std::cout << std::endl;
     }
@@ -349,7 +351,7 @@ void AVLTree<Comparable>::display() const {
 
 int main() {
     // Test the AVL tree for integers
-    AVLTree<int> intTree;
+    AVLTree<int,int> intTree;
     std::cout << "Empty? "<< intTree.empty() << std::endl;
 
     // Insert integer keys with associated values
@@ -372,7 +374,7 @@ int main() {
     std::cout << "Empty? "<< intTree.empty() << std::endl;
 
     // Test the AVL tree for strings
-    AVLTree<std::string> stringTree;
+    AVLTree<std::string,std::string> stringTree;
     std::cout << "Empty? "<< stringTree.empty() << std::endl;
 
     // Insert string keys with associated string values
