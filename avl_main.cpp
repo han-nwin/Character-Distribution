@@ -251,6 +251,29 @@ private:
     }
 
     /**
+     * @brief Private method that traverses the subtree rooted at root to find an element of key k 
+     * Return the element (AvlNode)
+     * Function is marked as const -> ensure no modification
+     * @param KeyType & k: Reference of a key
+     * @return pointer to the AvlNode: element. nullptr if no key found
+     */
+    AvlNode * find(KeyType & k, AvlNode* root) const {
+        //Check for the key value of the current node
+        if((root->key) == k){
+            return root; //return if key is found
+        }
+        //Search left 
+        else if (k < root->key && root->left != nullptr){
+            return find(k, root->left);
+        }
+        //Search right
+        else if(k > root->key && root->left != nullptr){
+            return find(k, root->right);
+        }
+        else return nullptr;
+    }
+
+    /**
      * @brief Private method that traverses the subtree rooted at the given node.
      * Recursively performs an in-order traversal of the tree.
      * Displays keys, values, and their counts in sorted order (left - root - right).
@@ -311,6 +334,14 @@ public:
     void insert(const KeyType & x, const ValueType & v);
 
     /**
+     * @brief Public method to find an element with a key
+     * 
+     * This function is marked as const to ensure no modification is performed on the AvlTree structure
+     * @return values array of the element. Empty if no key found
+     */
+    void find(KeyType k) const;
+
+    /**
      * @brief Public method that displays the AVL Tree in in-order traversal.
      *
      * This function prints the elements of the AVL Tree in sorted order by performing an in-order traversal.
@@ -335,6 +366,21 @@ int AVLTree<KeyType, ValueType>::size() const {
 template <typename KeyType, typename ValueType>
 bool AVLTree<KeyType, ValueType>::empty() const {
     return empty(this->root);
+}
+
+//Impletementation of public find(key)
+template <typename KeyType, typename ValueType>
+void AVLTree<KeyType, ValueType>::find(KeyType k) const {
+    AvlNode * node = find(k, this->root);
+    if (node == nullptr){
+        std::cout << "No element found" << std::endl;
+    }
+    else {
+        for(const auto & vc : node->value_count){
+            std::cout << "[Value: " << vc.value << ", Count: " << vc.count << "] ";
+        }
+    }
+
 }
 
 // Implementation of public display()
@@ -363,15 +409,20 @@ int main() {
     intTree.insert(80, 6);
     intTree.insert(30, 7);
     intTree.insert(35, 8);
+    
 
     // Insert some duplicate values to check count increments
     intTree.insert(20, 1); // Increment count for value 1 under key 20
     intTree.insert(50, 5); // Increment count for value 5 under key 50
-
+    std::cout << "Size: " << intTree.size() << std::endl;   
     std::cout << "In-order traversal of integer AVL tree with values and counts:\n";
     intTree.display();
     std::cout << "SIZE: " << intTree.size() << std::endl;
     std::cout << "Empty? "<< intTree.empty() << std::endl;
+
+    int valtofind = 20;
+    std::cout << "Find key: " << valtofind << std::endl;
+    intTree.find(20);
 
     // Test the AVL tree for strings
     AVLTree<std::string,std::string> stringTree;
@@ -385,6 +436,7 @@ int main() {
     // Insert some duplicate values to check count increments
     stringTree.insert("banana", "ba"); // Increment count for "ba" under "banana"
     stringTree.insert("orange", "or"); // Increment count for "or" under "orange"
+    std::cout << "Size: " << stringTree.size() << std::endl;
 
     std::cout << "In-order traversal of string AVL tree with values and counts:\n";
     stringTree.display();
