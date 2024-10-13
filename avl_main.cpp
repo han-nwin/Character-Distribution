@@ -129,46 +129,6 @@ private:
         }
         else return false;
     }
-    /**
-    * @brief Recursively inserts a new key and value into the subtree rooted at the given node.
-    *
-    * This function inserts the key and its associated value into the correct position in the subtree while maintaining the
-    * binary search tree property. If the key already exists, it updates the value_count vector by adding or updating the value.
-    * After insertion, the function calls `balance` to ensure that the subtree remains balanced.
-    *
-    * @param KeyType x The key to insert.
-    * @param ValueType v The associated value for the key.
-    * @param AvlNode t Reference to the pointer to the root of the subtree in which to insert the key-value pair.
-    */
-    void insert(const KeyType & x, const ValueType & v, AvlNode* & t) {
-        if (t == nullptr) {
-            // If no node exists, create a new node with the key and value
-            t = new AvlNode(x, v);
-        }
-        else if (x < t->key) {
-            insert(x, v, t->left);  // Insert into the left subtree
-        }
-        else if (x > t->key) {
-            insert(x, v, t->right);  // Insert into the right subtree
-        }
-        // If the key already exists, check for the value in value_count
-        else {
-            bool valueExists = false;
-            for (auto & vc : t->value_count) {
-                if (vc.value == v) {
-                    vc.count++;  // Increment the count if the value exists
-                    valueExists = true;
-                    break;
-                }
-            }
-            if (valueExists == false) {
-                // If the value does not exist, add it to the value_count vector with count 1
-                t->value_count.push_back(ValueCount(v, 1));
-            }
-        }
-        balance(t);  // Balance the subtree after insertion
-    }
-
     static const int ALLOWED_IMBALANCE = 1;
      /**
      * @brief Balances the subtree rooted at the given node.
@@ -249,6 +209,107 @@ private:
         singleWithLeftChild(k->right); //First rotation for the right node of k
         singleWithRightChild(k); //Second rotation for k itseft
     }
+
+    /**
+    * @brief Recursively inserts a new key and value into the subtree rooted at the given node.
+    *
+    * This function inserts the key and its associated value into the correct position in the subtree while maintaining the
+    * binary search tree property. If the key already exists, it updates the value_count vector by adding or updating the value.
+    * After insertion, the function calls `balance` to ensure that the subtree remains balanced.
+    *
+    * @param KeyType k The key to insert.
+    * @param ValueType v The associated value for the key.
+    * @param AvlNode t Reference to the pointer to the root of the subtree in which to insert the key-value pair.
+    */
+    void insert(const KeyType & k, const ValueType & v, AvlNode* & t) {
+        if (t == nullptr) {
+            // If no node exists, create a new node with the key and value
+            t = new AvlNode(k, v);
+        }
+        else if (k < t->key) {
+            insert(k, v, t->left);  // Insert into the left subtree
+        }
+        else if (k > t->key) {
+            insert(k, v, t->right);  // Insert into the right subtree
+        }
+        // If the key already exists, check for the value in value_count
+        else {
+            bool valueExists = false;
+            for (auto & vc : t->value_count) {
+                if (vc.value == v) {
+                    vc.count++;  // Increment the count if the value exists
+                    valueExists = true;
+                    break;
+                }
+            }
+            if (valueExists == false) {
+                // If the value does not exist, add it to the value_count vector with count 1
+                t->value_count.push_back(ValueCount(v, 1));
+            }
+        }
+        balance(t);  // Balance the subtree after insertion (height updated here)
+    }
+
+    /**
+     * @brief Find the minimum node in a subtree (used for node replacement during deletion)
+    */
+    AvlNode* findMin(AvlNode* t) const {
+        if (t == nullptr) return nullptr;
+        if (t->left == nullptr) return t;
+        return findMin(t->left);
+    }
+
+    /**
+    * @brief Recursively removes a node with the specified key from the subtree rooted at the given node.
+    *
+    * This function removes the node with the given key from the subtree while maintaining the binary search tree property.
+    * If the key exists in the tree, the node is removed, and the subtree is rebalanced if necessary.
+    * If the key does not exist, an error condition occurs.
+    * After removal, the function calls `balance` to ensure that the subtree remains balanced.
+    *
+    * @param KeyType k A reference to the key to remove from the AVL tree.
+    * @param AvlNode* & t A pointer reference to the root of the subtree from which to remove the key.
+    * @throw std::runtime_error if the key does not exist in the tree.
+    */
+    void remove(const KeyType & k, AvlNode * & t){
+        if (t == nullptr) {
+            throw std::runtime_error("Error: Key not found");  // Error if key does not exist
+        }
+
+        if(k < t->key){
+            remove(k, t.left); //key is in the left subtree
+        }
+        else if(k > t-key){
+            remove(k, t.right); //key is in the right subtree
+        }
+        //Key found
+        else {
+            //Node has 2 children
+            if(t->left != nullptr && t->right != nullptr){
+                AvlNode* minNode = findMin(t->right); //find the minimum node of the right subtree
+                t->key = minNode->key; //transfer the key
+                t->value_count = minNode->value_count; //transfer the array
+                remove(minNode->key, t->right); //remove the minNode
+            }
+            //Node has one or no child
+            else{
+                AvlNode* oldNode = t;
+                //Promote the child (if there is)
+                if(t->left != nullptr){
+                    t = t->left; //promote left child
+                }
+                else if (t->right != nullptr){
+                    t = t->right;//promote right child
+                }
+
+                delete(oldNode); //Delete the node
+            }
+
+            balance(t); //Balance the tree
+        }
+
+    }
+
 
     /**
      * @brief Private method that traverses the subtree rooted at root to find an element of key k 
@@ -334,10 +395,9 @@ public:
     void insert(const KeyType & x, const ValueType & v);
 
     /**
-     * @brief Public method to find an element with a key
-     * 
+     * @brief Public method to find an element with a given key and print it's value_count.
      * This function is marked as const to ensure no modification is performed on the AvlTree structure
-     * @return values array of the element. Empty if no key found
+     * 
      */
     void find(KeyType k) const;
 
@@ -371,7 +431,7 @@ bool AVLTree<KeyType, ValueType>::empty() const {
 //Impletementation of public find(key)
 template <typename KeyType, typename ValueType>
 void AVLTree<KeyType, ValueType>::find(KeyType k) const {
-    AvlNode * node = find(k, this->root);
+    AvlNode* node = find(k, this->root);
     if (node == nullptr){
         std::cout << "No element found" << std::endl;
     }
@@ -395,7 +455,19 @@ void AVLTree<KeyType, ValueType>::display() const {
 }
 
 
-int main() {
+int main(int argc, char* argv[]){
+
+
+
+
+
+
+
+
+
+
+    //TEST PART//
+    std::cout << "======================================================="<< std::endl;
     // Test the AVL tree for integers
     AVLTree<int,int> intTree;
     std::cout << "Empty? "<< intTree.empty() << std::endl;
