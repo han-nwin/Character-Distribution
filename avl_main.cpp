@@ -10,7 +10,9 @@
 #include <algorithm> 
 #include <vector>
 #include <fstream>
-#include <cstring>
+#include <cstring> //for cstring operations
+#include <random>
+#include <ctime>
 
 /**
  * @class AVLTree
@@ -359,6 +361,40 @@ private:
         }
     }
 
+    /**
+     * @brief Function to get a value of a given key randomly. 
+     * Value that has a higher count will has a higher chance of being returned.
+     * 
+     * Function is marked as const to ensure no modification is performed on the Tree Structure
+     * 
+     * @param Keytype & k key value
+     * @param AvlNode * root: Pointer to the root Node of the substree
+     * @return ValueType value
+     */
+    ValueType getRandVar(const KeyType & k, AvlNode* root) const {
+        AvlNode* node = find(k, this->root);
+        if (node == nullptr) {
+            throw std::runtime_error("Key not found");
+        }
+        int totalWeight = 0;
+        //Calculate total weight
+        for (const auto& vc : node->value_count) {
+                totalWeight += vc.count;
+        }
+        // Generate a random number between 0 and totalWeight - 1
+        std::srand(static_cast<unsigned>(std::time(0))); // Seed the random number generator
+        int randNum = (std::rand() % totalWeight);
+        // Traverse the array and select the value based on the random number
+        int cumulativeWeight = 0;
+        for (const auto& vc : node->value_count) {
+            cumulativeWeight += vc.count;
+            if (randNum < cumulativeWeight) {
+                return vc.value; // Pick this value
+            }
+        }
+        return ValueType(); //Fallback, though we should never reach here
+    }
+
 
 public:
     /**
@@ -413,6 +449,14 @@ public:
     void find(const KeyType & k) const;
 
     /**
+     * @brief Public method to get a random value weighted by the count
+     * Function is marked as const to ensure no modification is performed on the Tree Structure
+     * @param Keytype & k
+     * @return ValueType value
+     */
+    ValueType getRandVar(const KeyType & k) const;
+
+    /**
      * @brief Public method that displays the AVL Tree in in-order traversal.
      *
      * This function prints the elements of the AVL Tree in sorted order by performing an in-order traversal.
@@ -458,6 +502,12 @@ void AVLTree<KeyType, ValueType>::find(const KeyType & k) const {
 template <typename KeyType, typename ValueType>
 void AVLTree<KeyType, ValueType>::remove(const KeyType & k){
     remove(k,this->root);
+}
+
+//Implementation of public getRandVar(key)
+template <typename KeyType, typename ValueType>
+ValueType AVLTree<KeyType, ValueType>::getRandVar(const KeyType & k) const{
+    return getRandVar(k,this->root);
 }
 
 // Implementation of public display()
@@ -516,7 +566,7 @@ int main(int argc, char* argv[]){
 
     int k = 0;
     // Slide the window through the file, one character at a time
-    while (file.get(next_char) && k < 20) {
+    while (file.get(next_char) && k < 100) {
         // Replace newline or tab with a space
         /* if (next_char == '\n' || next_char == '\t') {
             next_char = ' ';
@@ -537,17 +587,21 @@ int main(int argc, char* argv[]){
         k++;
     }
     stringTree.display();
-
     file.close();
-
+    delete[] buffer; // Clean up dynamically allocated memory
+    //===================DONE STORING INPUT=====================//
+    //Work on the output
     // Create and open the output file
     std::ofstream outfile("out.txt");  
     if (!outfile) {
         std::cerr << "Error creating output file!" << std::endl;
         return 1;
     }
+    std::string key = "ni";
+    std::cout << "Get a random value of key: " << key << "-> Value: " << stringTree.getRandVar(std::string(key)) << std::endl;
+
     outfile.close();
-    delete[] buffer; // Clean up dynamically allocated memory
+    
     return 0;
 }
 
