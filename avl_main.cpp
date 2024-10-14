@@ -347,12 +347,11 @@ private:
             display(root->left);  // Traverse the left subtree
 
             // Display the key
-            std::cout << "Key: " << root->key << " -> ";
+            std::cout << "Key: \'" << root->key << "\' -> ";
 
             // Display all values and their counts for this key
-            std::cout << "Values and counts: ";
             for (const auto& vc : root->value_count) {
-                std::cout << "[Value: " << vc.value << ", Count: " << vc.count << "] ";
+                std::cout << "[Value: \'" << vc.value << "\', Count: \'" << vc.count << "\'] ";
             }
             std::cout << std::endl;
 
@@ -480,41 +479,74 @@ int main(int argc, char* argv[]){
     }
     
     std::ifstream file("merchant.txt"); // Open the file
-    if (!file.is_open()) {
-        std::cerr << "Error: Could not open the file!" << std::endl;
+    if (!file) {
+        std::cerr << "Error opening input file!" << std::endl;
         return 1; // Exit if the file couldn't be opened
     }
+    
+    
 
+    AVLTree<std::string,std::string> stringTree;
+    std::cout << "Empty? "<< stringTree.empty() << std::endl;
     char next_char;
+    char peek_char;
     int window_size = atoi(argv[1]);
     char* buffer = new char[window_size + 1]; // Create a buffer to hold the window
     // Pre-fill the buffer with the first 'window_size' characters
     for (int i = 0; i < window_size; i++) {
         if (file.get(next_char)) {
+            // Replace newline or tab with a space
+            /* if (next_char == '\n' || next_char == '\t') {
+                next_char = ' ';
+            } */
             buffer[i] = next_char;
         } else {
             break; // If the file has fewer characters than the window size
         }
     }
     buffer[window_size] = '\0'; // Null-terminate the buffer to treat it as a C-string
+    
+    // Peek the next character in the file stream without extracting it
+    peek_char = file.peek();
     // Output the pre-filled window
-    std::cout << "Read: " << buffer << std::endl;
+    /* std::cout << "Insert Key: \'" << buffer <<"\'" << std::endl;
+    std::cout << "Value: \'" << peek_char <<"\'" << std::endl; */
+    //Insert to the Tree
+    stringTree.insert(std::string(buffer),std::string(1,peek_char));
 
-    int k;
+    int k = 0;
     // Slide the window through the file, one character at a time
-    while (file.get(next_char) && k < 10) {
+    while (file.get(next_char) && k < 20) {
+        // Replace newline or tab with a space
+        /* if (next_char == '\n' || next_char == '\t') {
+            next_char = ' ';
+        } */
         // Shift the buffer to the left by 1 and append the new character
         for (int i = 0; i < window_size - 1; i++) {
             buffer[i] = buffer[i + 1];
         }
-        buffer[window_size - 1] = next_char;
+        buffer[window_size - 1] = next_char; //get the next char
 
+        
+        peek_char = file.peek();
         // Output the current window
-        std::cout << "Read: " << buffer << std::endl;
+        /* std::cout << "Insert Key: \'" << buffer <<"\'" << std::endl;
+        std::cout << "Value: \'" << peek_char <<"\'" << std::endl; */
+        //Insert to the Tree
+        stringTree.insert(std::string(buffer),std::string(1,peek_char));
         k++;
     }
+    stringTree.display();
 
     file.close();
+
+    // Create and open the output file
+    std::ofstream outfile("out.txt");  
+    if (!outfile) {
+        std::cerr << "Error creating output file!" << std::endl;
+        return 1;
+    }
+    outfile.close();
     delete[] buffer; // Clean up dynamically allocated memory
     return 0;
 }
