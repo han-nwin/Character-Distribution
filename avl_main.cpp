@@ -527,6 +527,10 @@ int main(int argc, char* argv[]){
         std::cerr << "Usage: " << argv[0] << " <window-size>" << std::endl;
         return 1;
     }
+    else if(atoi(argv[1]) <= 0){
+        std::cerr << "Invalid Argument: " << argv[0]<< " " << argv[1] << ": <window-size> must be a positive integer" << std::endl;
+        return 1;
+    }
     
     std::ifstream file("merchant.txt"); // Open the file
     if (!file) {
