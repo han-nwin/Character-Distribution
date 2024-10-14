@@ -533,11 +533,15 @@ int main(int argc, char* argv[]){
         std::cerr << "Error opening input file!" << std::endl;
         return 1; // Exit if the file couldn't be opened
     }
-    
-    
+    //==Capture file length to use later==//
+    file.seekg(0, std::ios::end); // Seek to the end of the file
+    std::streampos fileSize = file.tellg(); // Get the current position in the file, which is the size
+    file.seekg(0, std::ios::beg); // Reset the stream position back to the beginning
+    std::size_t infileLength = static_cast<std::size_t>(fileSize); // Cast fileSize to an integer (int or size_t)
+    //===========================================================//
 
-    AVLTree<std::string,std::string> stringTree;
-    std::cout << "Empty? "<< stringTree.empty() << std::endl;
+    AVLTree<std::string,std::string> stringTree;//Declare the Tree structure
+    
     char next_char;
     char peek_char;
     int window_size = atoi(argv[1]);
@@ -555,18 +559,15 @@ int main(int argc, char* argv[]){
         }
     }
     buffer[window_size] = '\0'; // Null-terminate the buffer to treat it as a C-string
-    
+    //NOTE: Save the first string to use for output later
+    std::string firstString(buffer);
     // Peek the next character in the file stream without extracting it
     peek_char = file.peek();
-    // Output the pre-filled window
-    /* std::cout << "Insert Key: \'" << buffer <<"\'" << std::endl;
-    std::cout << "Value: \'" << peek_char <<"\'" << std::endl; */
     //Insert to the Tree
     stringTree.insert(std::string(buffer),std::string(1,peek_char));
 
-    int k = 0;
     // Slide the window through the file, one character at a time
-    while (file.get(next_char) && k < 100) {
+    while (file.get(next_char)) {
         // Replace newline or tab with a space
         /* if (next_char == '\n' || next_char == '\t') {
             next_char = ' ';
@@ -584,22 +585,44 @@ int main(int argc, char* argv[]){
         std::cout << "Value: \'" << peek_char <<"\'" << std::endl; */
         //Insert to the Tree
         stringTree.insert(std::string(buffer),std::string(1,peek_char));
-        k++;
     }
-    stringTree.display();
+    //stringTree.display();
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
     //===================DONE STORING INPUT=====================//
     //Work on the output
+    std::string outString = firstString; //Create an output string and initialize with firstString
+    std::string windowString = firstString;
+    std::cout << "====Final String Initial====" << std::endl;
+    std::cout << outString << std::endl;
+    
+    std::string key = windowString;
+    std::string toAdd = stringTree.getRandVar(std::string(key));
+    while(outString.length() <= infileLength ){
+        try{
+        outString += toAdd;
+        windowString.erase(0,1);
+        windowString += toAdd;
+        //std::cout << "Get a random value of key: \'" << key << "\'-> Value: \'" << toAdd << "\'" << std::endl;
+        key = windowString;
+        toAdd = stringTree.getRandVar(std::string(key));
+        } catch (const std::runtime_error &e){
+            //Catch the runtime error of getRandvar and break the loop
+            break;
+        }
+    }
+    std::cout << "====Final String====" << std::endl;
+    std::cout << outString << std::endl;
+
+
     // Create and open the output file
     std::ofstream outfile("out.txt");  
     if (!outfile) {
         std::cerr << "Error creating output file!" << std::endl;
         return 1;
     }
-    std::string key = "ni";
-    std::cout << "Get a random value of key: " << key << "-> Value: " << stringTree.getRandVar(std::string(key)) << std::endl;
-
+    // Write outString to the file
+    outfile << outString;
     outfile.close();
     
     return 0;
