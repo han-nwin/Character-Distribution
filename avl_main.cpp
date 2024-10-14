@@ -9,6 +9,8 @@
 #include <iostream>
 #include <algorithm> 
 #include <vector>
+#include <fstream>
+#include <cstring>
 
 /**
  * @class AVLTree
@@ -71,6 +73,7 @@ private:
             { 
                 value_count.push_back(ValueCount(value, 1)); //Push the value a initalize its count
             }
+    
     };
     
     /**
@@ -79,7 +82,7 @@ private:
     AvlNode *root; 
 
     /**
-     * 
+     * @brief Function to properly delete a node from memory
      */
     void clear(AvlNode *t){
         if (t != nullptr){
@@ -277,19 +280,20 @@ private:
         }
 
         if(k < t->key){
-            remove(k, t.left); //key is in the left subtree
+            remove(k, t->left); //key is in the left subtree
         }
-        else if(k > t-key){
-            remove(k, t.right); //key is in the right subtree
+        else if(k > t->key){
+            remove(k, t->right); //key is in the right subtree
         }
         //Key found
         else {
             //Node has 2 children
             if(t->left != nullptr && t->right != nullptr){
                 AvlNode* minNode = findMin(t->right); //find the minimum node of the right subtree
+                
                 t->key = minNode->key; //transfer the key
                 t->value_count = minNode->value_count; //transfer the array
-                remove(minNode->key, t->right); //remove the minNode
+                remove(minNode->key, t->right); //remove the minNode from the right subtree
             }
             //Node has one or no child
             else{
@@ -298,16 +302,14 @@ private:
                 if(t->left != nullptr){
                     t = t->left; //promote left child
                 }
-                else if (t->right != nullptr){
-                    t = t->right;//promote right child
+                else{
+                    t = t->right; //promote right child
                 }
-
-                delete(oldNode); //Delete the node
+                delete oldNode;
             }
-
-            balance(t); //Balance the tree
         }
-
+        //END ALL Checks//
+            balance(t);  //Balance the tree
     }
 
 
@@ -318,7 +320,7 @@ private:
      * @param KeyType & k: Reference of a key
      * @return pointer to the AvlNode: element. nullptr if no key found
      */
-    AvlNode * find(KeyType & k, AvlNode* root) const {
+    AvlNode* find(const KeyType & k, AvlNode* root) const {
         //Check for the key value of the current node
         if((root->key) == k){
             return root; //return if key is found
@@ -389,17 +391,27 @@ public:
      * This function inserts the element into the AVL Tree, ensuring that the tree remains balanced after insertion.
      * The element is placed based on binary search tree insertion rules.
      *
-     * @param KeyType x The key to insert into the tree.
+     * @param KeyType k The key to insert into the tree.
      * @param ValueType v The value of the key
      */
-    void insert(const KeyType & x, const ValueType & v);
+    void insert(const KeyType & k, const ValueType & v);
+
+    /**
+     * @brief Remove an element from the AVL Tree
+     * 
+     * This function remove the element in the AVL Tree with the given key
+     * 
+     * @param KeyType k
+     */
+    void remove(const KeyType & k);
 
     /**
      * @brief Public method to find an element with a given key and print it's value_count.
      * This function is marked as const to ensure no modification is performed on the AvlTree structure
      * 
+     * @param Keytype k
      */
-    void find(KeyType k) const;
+    void find(const KeyType & k) const;
 
     /**
      * @brief Public method that displays the AVL Tree in in-order traversal.
@@ -430,17 +442,23 @@ bool AVLTree<KeyType, ValueType>::empty() const {
 
 //Impletementation of public find(key)
 template <typename KeyType, typename ValueType>
-void AVLTree<KeyType, ValueType>::find(KeyType k) const {
+void AVLTree<KeyType, ValueType>::find(const KeyType & k) const {
     AvlNode* node = find(k, this->root);
     if (node == nullptr){
         std::cout << "No element found" << std::endl;
     }
     else {
         for(const auto & vc : node->value_count){
-            std::cout << "[Value: " << vc.value << ", Count: " << vc.count << "] ";
+            std::cout << "[Value: " << vc.value << ", Count: " << vc.count << "] " << std::endl;
         }
     }
+    std::cout << std::endl;
+}
 
+//Implementation of public remove(key)
+template <typename KeyType, typename ValueType>
+void AVLTree<KeyType, ValueType>::remove(const KeyType & k){
+    remove(k,this->root);
 }
 
 // Implementation of public display()
@@ -456,16 +474,56 @@ void AVLTree<KeyType, ValueType>::display() const {
 
 
 int main(int argc, char* argv[]){
+    if(argc != 2){
+        std::cerr << "Usage: " << argv[0] << " <window-size>" << std::endl;
+        return 1;
+    }
+    
+    std::ifstream file("merchant.txt"); // Open the file
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open the file!" << std::endl;
+        return 1; // Exit if the file couldn't be opened
+    }
+
+    char next_char;
+    int window_size = atoi(argv[1]);
+    char* buffer = new char[window_size + 1]; // Create a buffer to hold the window
+    // Pre-fill the buffer with the first 'window_size' characters
+    for (int i = 0; i < window_size; i++) {
+        if (file.get(next_char)) {
+            buffer[i] = next_char;
+        } else {
+            break; // If the file has fewer characters than the window size
+        }
+    }
+    buffer[window_size] = '\0'; // Null-terminate the buffer to treat it as a C-string
+    // Output the pre-filled window
+    std::cout << "Read: " << buffer << std::endl;
+
+    int k;
+    // Slide the window through the file, one character at a time
+    while (file.get(next_char) && k < 10) {
+        // Shift the buffer to the left by 1 and append the new character
+        for (int i = 0; i < window_size - 1; i++) {
+            buffer[i] = buffer[i + 1];
+        }
+        buffer[window_size - 1] = next_char;
+
+        // Output the current window
+        std::cout << "Read: " << buffer << std::endl;
+        k++;
+    }
+
+    file.close();
+    delete[] buffer; // Clean up dynamically allocated memory
+    return 0;
+}
 
 
 
 
 
-
-
-
-
-
+/*
     //TEST PART//
     std::cout << "======================================================="<< std::endl;
     // Test the AVL tree for integers
@@ -496,6 +554,11 @@ int main(int argc, char* argv[]){
     std::cout << "Find key: " << valtofind << std::endl;
     intTree.find(20);
 
+    int valtorm = 20;
+    std::cout << "Remove key: " << valtorm << std::endl;
+    intTree.remove(valtorm);
+    intTree.display();
+
     // Test the AVL tree for strings
     AVLTree<std::string,std::string> stringTree;
     std::cout << "Empty? "<< stringTree.empty() << std::endl;
@@ -515,7 +578,16 @@ int main(int argc, char* argv[]){
     std::cout << "SIZE: " << stringTree.size() << std::endl;
     std::cout << "Empty? "<< stringTree.empty() << std::endl;
 
+    std::string strvaltofind = "banana";
+    std::cout << "Find key: " << strvaltofind << std::endl;
+    stringTree.find("banana");
+    
+    std::string strvaltorm = "banana";
+    std::cout << "Remove key: " << strvaltorm << std::endl;
+    stringTree.remove(strvaltorm);
+    stringTree.display();
+    
     return 0;
 }
-
+*/
 
