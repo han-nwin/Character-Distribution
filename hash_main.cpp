@@ -75,12 +75,14 @@ class HashTable{
              * @param vc The vector of associated values and their counts.
              * @param active A boolean flag indicating if the entry is active (defaults to true).
              */
-            HashEntry(const KeyType & key = KeyType(), const ValueType & value, bool active = true)
+            HashEntry(const KeyType & key, const ValueType & value, bool active = true)
                 : key(k), isActive(active) {
                     value_count.pushback(value,1);//Add the value to the array and initialize the count to 1
                 }
         };
-        
+
+        int tableSize;
+        std::vector<HashEntry> table; // The underlying array represents the hash table
 
         // Helper function to check if a number is prime
         bool isPrime(int n) {
@@ -107,10 +109,6 @@ class HashTable{
             return n;
         }
 
-        int tableSize;
-        std::vector<ValueCount> value_count; // Vector of values and their counts
-        std::vector<KeyType, ValueCount> * table; // pointer to the hashtable
-
     public:
         /**
          * @brief Constructs an empty AVL Tree.
@@ -125,3 +123,12 @@ class HashTable{
         }
 
 };
+
+
+
+
+
+int main(int argc, char* argv[]){
+    
+    //===========================================================//
+}
