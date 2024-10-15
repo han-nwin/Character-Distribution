@@ -45,7 +45,7 @@ class AVLTree {
             /**
              * @brief Constructor
              * @param Comparable v Reference to the value
-             * @param c count of the value initialized  = 0
+             * @param c count of the value
              */
             ValueCount(const ValueType & v, int c) : value(v), count(c) {}
         };
@@ -569,7 +569,7 @@ int main(int argc, char* argv[]){
     peek_char = file.peek();
     //Insert to the Tree
     stringTree.insert(std::string(buffer),std::string(1,peek_char));
-
+    
     // Slide the window through the file, one character at a time
     while (file.get(next_char)) {
         // Replace newline or tab with a space
@@ -590,7 +590,7 @@ int main(int argc, char* argv[]){
         //Insert to the Tree
         stringTree.insert(std::string(buffer),std::string(1,peek_char));
     }
-    //stringTree.display();
+    stringTree.display();
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
     //===================DONE STORING INPUT=====================//
