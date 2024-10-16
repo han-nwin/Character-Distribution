@@ -15,6 +15,13 @@
 #include <ctime>
 
 /**
+ * @brief Global method to seed the random generator out of the scope of the class
+ */
+void initializeRandomGenerator() {
+    std::srand(static_cast<unsigned>(std::time(NULL))); // Seed the random number generator globally
+}
+
+/**
  * @class AVLTree
  * @brief Implements a self-balancing Binary Search Tree using the AVL Tree algorithm.
  *
@@ -332,7 +339,7 @@ class AVLTree {
                 return find(k, root->left);
             }
             //Search right
-            else if(k > root->key && root->left != nullptr){
+            else if(k > root->key && root->right != nullptr){
                 return find(k, root->right);
             }
             else return nullptr;
@@ -374,6 +381,7 @@ class AVLTree {
         ValueType getRandVar(const KeyType & k, AvlNode* root) const {
             AvlNode* node = find(k, this->root);
             if (node == nullptr) {
+                std::cerr << "Key not found in getRandVar: " << k << std::endl;
                 throw std::runtime_error("Key not found");
             }
             int totalWeight = 0;
@@ -382,7 +390,7 @@ class AVLTree {
                     totalWeight += vc.count;
             }
             // Generate a random number between 0 and totalWeight - 1
-            std::srand(static_cast<unsigned>(std::time(0))); // Seed the random number generator
+            //std::rand is already seeded in global method
             int randNum = (std::rand() % totalWeight);
             // Traverse the array and select the value based on the random number
             int cumulativeWeight = 0;
@@ -590,7 +598,7 @@ int main(int argc, char* argv[]){
         //Insert to the Tree
         stringTree.insert(std::string(buffer),std::string(1,peek_char));
     }
-    stringTree.display();
+    //stringTree.display();
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
     //===================DONE STORING INPUT=====================//
@@ -609,14 +617,17 @@ int main(int argc, char* argv[]){
         windowString += toAdd;
         //std::cout << "Get a random value of key: \'" << key << "\'-> Value: \'" << toAdd << "\'" << std::endl;
         key = windowString;
+        //std::cout << "Key: |" << key << std::endl;
         toAdd = stringTree.getRandVar(std::string(key));
+        //std::cout << "toAdd: |" << toAdd << std::endl;
         } catch (const std::runtime_error &e){
+             std::cout << "Caught runtime_error: " << e.what() << std::endl;
             //Catch the runtime error of getRandvar and break the loop
             break;
         }
     }
     std::cout << "====Final String====" << std::endl;
-    std::cout << outString << std::endl;
+    std::cout << "\'" << outString << "\'" << std::endl;
 
 
     // Create and open the output file
@@ -628,6 +639,7 @@ int main(int argc, char* argv[]){
     // Write outString to the file
     outfile << outString;
     outfile.close();
+    std::cout << "Export to out.txt file successfully!" << std::endl;
     
     return 0;
 }
