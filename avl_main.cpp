@@ -14,10 +14,6 @@
 #include <random>
 #include <ctime>
 
-void initializeRandomGenerator() {
-            std::srand(static_cast<unsigned>(std::time(NULL))); // Seed the random number generator globally
-        }
-
 /**
  * @class AVLTree
  * @brief Implements a self-balancing Binary Search Tree using the AVL Tree algorithm.
