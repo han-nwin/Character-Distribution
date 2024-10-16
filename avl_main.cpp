@@ -14,12 +14,9 @@
 #include <random>
 #include <ctime>
 
-/**
- * @brief Global method to seed the random generator out of the scope of the class
- */
 void initializeRandomGenerator() {
-    std::srand(static_cast<unsigned>(std::time(NULL))); // Seed the random number generator globally
-}
+            std::srand(static_cast<unsigned>(std::time(NULL))); // Seed the random number generator globally
+        }
 
 /**
  * @class AVLTree
@@ -369,16 +366,25 @@ class AVLTree {
         }
 
         /**
+         * @brief Private method to seed the random generator
+         * Encapsulate the seeding method to avoid manipulation
+         * The function is marked as const to ensure no modification if perform on the Tree structure
+         */
+        /* void initializeRandomGenerator() const {
+            std::srand(static_cast<unsigned>(std::time(NULL))); // Seed the random number generator globally
+        } */
+
+        std::mt19937 rand_num_gen;  // Each instance gets its own rng (random number generator). Seeding happens in the constructor
+    
+        /**
          * @brief Function to get a value of a given key randomly. 
          * Value that has a higher count will has a higher chance of being returned.
-         * 
-         * Function is marked as const to ensure no modification is performed on the Tree Structure
          * 
          * @param Keytype & k key value
          * @param AvlNode * root: Pointer to the root Node of the substree
          * @return ValueType value
          */
-        ValueType getRandVar(const KeyType & k, AvlNode* root) const {
+        ValueType getRandVar(const KeyType & k, AvlNode* root) {
             AvlNode* node = find(k, this->root);
             if (node == nullptr) {
                 std::cerr << "Key not found in getRandVar: " << k << std::endl;
@@ -390,8 +396,8 @@ class AVLTree {
                     totalWeight += vc.count;
             }
             // Generate a random number between 0 and totalWeight - 1
-            //std::rand is already seeded in global method
-            int randNum = (std::rand() % totalWeight);
+            std::uniform_int_distribution<int> dist(0, totalWeight - 1);
+            int randNum = dist(rand_num_gen);
             // Traverse the array and select the value based on the random number
             int cumulativeWeight = 0;
             for (const auto& vc : node->value_count) {
@@ -408,7 +414,11 @@ class AVLTree {
         /**
          * @brief Constructs an empty AVL Tree.
          */
-        AVLTree() : root(nullptr){}
+        AVLTree() : root(nullptr){
+            //Change the seed everytime the new AVLTree Object is created
+            std::random_device ran_device;
+            rand_num_gen.seed(ran_device()); //seed the rng
+        }
 
         /**
          * @brief Constructs an empty AVL Tree.
@@ -462,7 +472,7 @@ class AVLTree {
          * @param Keytype & k
          * @return ValueType value
          */
-        ValueType getRandVar(const KeyType & k) const;
+        ValueType getRandVar(const KeyType & k);
 
         /**
          * @brief Public method that displays the AVL Tree in in-order traversal.
@@ -514,7 +524,7 @@ void AVLTree<KeyType, ValueType>::remove(const KeyType & k){
 
 //Implementation of public getRandVar(key)
 template <typename KeyType, typename ValueType>
-ValueType AVLTree<KeyType, ValueType>::getRandVar(const KeyType & k) const{
+ValueType AVLTree<KeyType, ValueType>::getRandVar(const KeyType & k) {
     return getRandVar(k,this->root);
 }
 
@@ -604,9 +614,7 @@ int main(int argc, char* argv[]){
     //===================DONE STORING INPUT=====================//
     //Work on the output
     std::string outString = firstString; //Create an output string and initialize with firstString
-    std::string windowString = firstString;
-    std::cout << "====Final String Initial====" << std::endl;
-    std::cout << outString << std::endl;
+    std::string windowString = firstString; //Create a window and initialize with firstString
     
     std::string key = windowString;
     std::string toAdd = stringTree.getRandVar(std::string(key));
@@ -625,10 +633,12 @@ int main(int argc, char* argv[]){
             //Catch the runtime error of getRandvar and break the loop
             break;
         }
+
     }
+    outString.pop_back(); outString.pop_back();  // Remove garbage
+
     std::cout << "====Final String====" << std::endl;
     std::cout << "\'" << outString << "\'" << std::endl;
-
 
     // Create and open the output file
     std::ofstream outfile("out.txt");  
@@ -639,7 +649,7 @@ int main(int argc, char* argv[]){
     // Write outString to the file
     outfile << outString;
     outfile.close();
-    std::cout << "Export to out.txt file successfully!" << std::endl;
+    std::cout << "====Export to out.txt file successfully!====" << std::endl;
     
     return 0;
 }
