@@ -1,0 +1,149 @@
+$ ./avl_mainWin.exe 1
+Key: '
+' -> [Value: '
+', Count: '1451'] [Value: 'v', Count: '12'] [Value: 'e', Count: '120'] [Value: 'a', Count: '405'] [Value: 'i', Count: '339'] [Value: 'b', Count: '217'] [Value: 'w', Count: '265'] [Value: 't', Count: '488'] [Value: 's', Count: 
+'269'] [Value: 'y', Count: '106'] [Value: 'l', Count: '146'] [Value: 'o', Count: '99'] [Value: 'd', Count: '68'] [Value: 'p', Count: '154'] [Value: 'm', Count: '114'] [Value: 'n', Count: '126'] [Value: 'u', Count: '31'] [Value: 'f', Count: '107'] [Value: 'h', Count: '157'] [Value: 'g', Count: '124'] [Value: 'c', Count: '52'] [Value: 'r', Count: '22'] [Value: 'k', Count: '4'] [Value: 'j', Count: '28'] [Value: 'q', Count: '3'] [Value: ' ', Count: '1']
+Key: ' ' -> [Value: 's', Count: '1418'] [Value: '
+', Count: '20'] [Value: 'a', Count: '1696'] [Value: 'i', Count: '1405'] [Value: 'k', Count: '120'] [Value: 'n', Count: '566'] [Value: 'w', Count: '1155'] [Value: 'm', Count: '1370'] [Value: 'y', Count: '634'] [Value: 'h', Count: '1228'] [Value: 'c', Count: '622'] [Value: 'f', Count: '766'] [Value: 'o', Count: '830'] [Value: 'b', Count: '949'] [Value: 't', Count: '2526'] [Value: 'l', Count: '662'] [Value: 'p', Count: '502'] [Value: 'r', Count: '292'] [Value: 'd', Count: '653'] [Value: 'v', Count: '125'] [Value: 'g', Count: '455'] [Value: 'e', Count: '244'] [Value: 'u', Count: '177'] [Value: 'j', Count: '182'] [Value: 'q', Count: '25'] [Value: 'z', Count: '1']
+Key: 'a' -> [Value: 'c', Count: '156'] [Value: ' ', Count: '524'] [Value: 'n', Count: '1696'] [Value: 'l', Count: '543'] [Value: 'r', Count: '717'] [Value: 'm', Count: '200'] [Value: 'd', Count: '238'] [Value: 'y', Count: '314'] [Value: 'u', Count: '152'] [Value: 't', Count: '906'] [Value: 'k', Count: '153'] [Value: 'v', Count: '255'] [Value: 'i', Count: '243'] [Value: 's', Count: '569'] [Value: 'g', Count: '86'] [Value: '
+', Count: '231'] [Value: 'f', Count: '34'] [Value: 'b', Count: '71'] [Value: 'p', Count: '60'] [Value: 'w', Count: '72'] [Value: 'z', Count: '18'] [Value: 'x', Count: '2'] [Value: 'h', Count: '4'] [Value: 'e', Count: '4'] [Value: 'o', Count: '5'] [Value: 'j', Count: '1']
+Key: 'b' -> [Value: 'u', Count: '208'] [Value: 'y', Count: '106'] [Value: 'o', Count: '179'] [Value: 'e', Count: '460'] [Value: 'r', Count: '81'] [Value: 'j', Count: '5'] [Value: 't', Count: '19'] [Value: 'l', Count: '110'] [Value: 's', Count: '27'] [Value: 'a', Count: '228'] [Value: ' ', Count: '11'] [Value: 'i', Count: '40'] [Value: 'b', Count: '34'] [Value: 'w', Count: '1'] [Value: 'd', Count: '2'] [Value: '
+', Count: '2']
+Key: 'c' -> [Value: 't', Count: '101'] [Value: 'e', Count: '415'] [Value: 'a', Count: '253'] [Value: 'h', Count: '398'] [Value: 'k', Count: '192'] [Value: 'u', Count: '56'] [Value: 'o', Count: '379'] [Value: 'c', Count: '29'] 
+[Value: 'r', Count: '57'] [Value: 'l', Count: '38'] [Value: 'i', Count: '48'] [Value: 'y', Count: '20'] [Value: 'q', Count: '6'] [Value: ' ', Count: '15'] [Value: 's', Count: '1'] [Value: '
+', Count: '5']
+Key: 'd' -> [Value: ' ', Count: '1755'] [Value: '
+', Count: '296'] [Value: 'e', Count: '337'] [Value: 'n', Count: '9'] [Value: 'o', Count: '273'] [Value: 's', Count: '119'] [Value: 'y', Count: '51'] [Value: 'r', Count: '47'] [Value: 'i', Count: '198'] [Value: 'a', Count: '111'] [Value: 'g', Count: '54'] [Value: 'u', Count: '84'] [Value: 'v', Count: '9'] [Value: 'h', Count: '1'] [Value: 'd', Count: '15'] [Value: 'l', Count: '17'] [Value: 't', Count: '1'] [Value: 'm', Count: '3'] [Value: 'w', Count: '7'] [Value: 'b', Count: '2'] [Value: 'c', Count: '1'] [Value: 'f', Count: '4']
+Key: 'e' -> [Value: 'n', Count: '914'] [Value: ' ', Count: '3621'] [Value: 'e', Count: '378'] [Value: 't', Count: '370'] [Value: 'r', Count: '1401'] [Value: 'a', Count: '634'] [Value: 's', Count: '759'] [Value: 'o', Count: '22'] [Value: '
+', Count: '562'] [Value: 'l', Count: '457'] [Value: 'm', Count: '120'] [Value: 'v', Count: '132'] [Value: 'y', Count: '106'] [Value: 'i', Count: '126'] [Value: 'c', Count: '115'] [Value: 'w', Count: '139'] [Value: 'd', Count: 
+'392'] [Value: 'f', Count: '91'] [Value: 'p', Count: '70'] [Value: 'g', Count: '23'] [Value: 'x', Count: '96'] [Value: 'u', Count: '38'] [Value: 'k', Count: '11'] [Value: 'b', Count: '22'] [Value: 'q', Count: '6'] [Value: 'h', Count: '16']
+Key: 'f' -> [Value: 'o', Count: '441'] [Value: 'f', Count: '61'] [Value: ' ', Count: '622'] [Value: '
+', Count: '49'] [Value: 'l', Count: '55'] [Value: 'i', Count: '105'] [Value: 'e', Count: '186'] [Value: 'r', Count: '133'] [Value: 'a', Count: '181'] [Value: 'y', Count: '11'] [Value: 'u', Count: '49'] [Value: 't', Count: '52'] [Value: 's', Count: '5']
+Key: 'g' -> [Value: 'h', Count: '208'] [Value: ' ', Count: '338'] [Value: 'o', Count: '255'] [Value: 'n', Count: '26'] [Value: 'e', Count: '207'] [Value: 's', Count: '34'] [Value: 'r', Count: '162'] [Value: 'u', Count: '22'] [Value: 'l', Count: '27'] [Value: 'p', Count: '3'] [Value: 'a', Count: '92'] [Value: '
+', Count: '70'] [Value: 'i', Count: '92'] [Value: 'm', Count: '12'] [Value: 't', Count: '3'] [Value: 'g', Count: '15'] [Value: 'd', Count: '10']
+Key: 'h' -> [Value: ' ', Count: '657'] [Value: 'y', Count: '218'] [Value: 'o', Count: '590'] [Value: 't', Count: '156'] [Value: 'a', Count: '1071'] [Value: 'e', Count: '2018'] [Value: '
+', Count: '91'] [Value: 'i', Count: '706'] [Value: 'u', Count: '55'] [Value: 'r', Count: '88'] [Value: 'l', Count: '9'] [Value: 's', Count: '19'] [Value: 'b', Count: '9'] [Value: 'm', Count: '3'] [Value: 'w', Count: '6'] [Value: 'd', Count: '11'] [Value: 'g', Count: '1'] [Value: 'f', Count: '3']
+Key: 'i' -> [Value: 'c', Count: '273'] [Value: 'o', Count: '411'] [Value: 'n', Count: '1198'] [Value: ' ', Count: '630'] [Value: 't', Count: '718'] [Value: 'e', Count: '220'] [Value: 's', Count: '884'] [Value: 'l', Count: '347'] [Value: 'k', Count: '44'] [Value: 'g', Count: '151'] [Value: 'r', Count: '223'] [Value: 'b', Count: '24'] [Value: 'a', Count: '288'] [Value: 'f', Count: '214'] [Value: 'd', Count: '147'] [Value: 'm', Count: '204'] [Value: 'p', Count: '54'] [Value: 'v', Count: '141'] [Value: '
+', Count: '22'] [Value: 'x', Count: '7'] [Value: 'z', Count: '8']
+Key: 'j' -> [Value: 'e', Count: '143'] [Value: 'a', Count: '12'] [Value: 'u', Count: '56'] [Value: 'o', Count: '11']
+Key: 'k' -> [Value: 'n', Count: '72'] [Value: 'e', Count: '243'] [Value: 'i', Count: '47'] [Value: ' ', Count: '198'] [Value: 'd', Count: '10'] [Value: 's', Count: '41'] [Value: 'l', Count: '5'] [Value: '
+', Count: '123'] [Value: 'f', Count: '3'] [Value: 'w', Count: '1'] [Value: 'm', Count: '1'] [Value: 'r', Count: '2'] [Value: 'y', Count: '1'] [Value: 'u', Count: '1'] [Value: 'o', Count: '3'] 
+Key: 'l' -> [Value: 'a', Count: '352'] [Value: 'e', Count: '525'] [Value: 'f', Count: '72'] [Value: 'y', Count: '142'] [Value: '
+', Count: '79'] [Value: 'i', Count: '240'] [Value: 'o', Count: '585'] [Value: 'd', Count: '278'] [Value: 'l', Count: '673'] [Value: 'u', Count: '25'] [Value: 't', Count: '70'] [Value: ' ', Count: '684'] [Value: 's', Count: '63'] [Value: 'k', Count: '18'] [Value: 'n', Count: '2'] [Value: 'm', Count: '18'] [Value: 'g', Count: '1'] [Value: 'c', Count: '23'] [Value: 'v', Count: '17'] [Value: 'r', Count: '3'] [Value: 'w', Count: '2'] [Value: 'p', Count: '4'] [Value: 'b', Count: '3'] [Value: 'h', Count: '1']
+Key: 'm' -> [Value: ' ', Count: '334'] [Value: 'e', Count: '731'] [Value: 'a', Count: '387'] [Value: 'u', Count: '114'] [Value: 'y', Count: '386'] [Value: 'i', Count: '126'] [Value: '
+', Count: '47'] [Value: 'o', Count: '232'] [Value: 'p', Count: '59'] [Value: 'b', Count: '27'] [Value: 'n', Count: '11'] [Value: 'm', Count: '35'] [Value: 's', Count: '29'] [Value: 't', Count: '1'] [Value: 'd', Count: '5'] [Value: 'l', Count: '1'] [Value: 'f', Count: '1'] 
+Key: 'n' -> [Value: 'e', Count: '518'] [Value: 'i', Count: '409'] [Value: 't', Count: '543'] [Value: 'o', Count: '712'] [Value: 'd', Count: '1120'] [Value: ' ', Count: '1141'] [Value: '
+', Count: '191'] [Value: 'g', Count: '507'] [Value: 'c', Count: '224'] [Value: 's', Count: '172'] [Value: 'k', Count: '69'] [Value: 'r', Count: '2'] [Value: 'u', Count: '6'] [Value: 'a', Count: '79'] [Value: 'z', Count: '80'] 
+[Value: 'y', Count: '87'] [Value: 'n', Count: '46'] [Value: 'l', Count: '42'] [Value: 'f', Count: '31'] [Value: 'b', Count: '3'] [Value: 'q', Count: '5'] [Value: 'm', Count: '1'] [Value: 'v', Count: '10'] [Value: 'j', Count: '5'] [Value: 'w', Count: '6'] [Value: 'p', Count: '2'] [Value: 'h', Count: '4']
+Key: 'o' -> [Value: 'n', Count: '836'] [Value: ' ', Count: '1102'] [Value: '
+', Count: '412'] [Value: 'o', Count: '304'] [Value: 't', Count: '494'] [Value: 'w', Count: '337'] [Value: 'u', Count: '1353'] [Value: 'r', Count: '1090'] [Value: 'f', Count: '510'] [Value: 's', Count: '207'] [Value: 'c', Count: '174'] [Value: 'd', Count: '158'] [Value: 'v', Count: '123'] [Value: 'p', Count: '58'] [Value: 'a', Count: '41'] [Value: 'b', Count: '62'] [Value: 'l', Count: '191'] [Value: 'm', Count: '344'] [Value: 'h', Count: '2'] [Value: 'k', Count: '42'] [Value: 'g', Count: '17'] [Value: 'e', Count: '24'] [Value: 'x', Count: '1'] [Value: 'i', Count: '31'] [Value: 'y', Count: '33'] [Value: 'z', Count: '1'] [Value: 'q', Count: '1']
+Key: 'p' -> [Value: 'o', Count: '297'] [Value: 'a', Count: '144'] [Value: 'e', Count: '182'] [Value: 'l', Count: '92'] [Value: 's', Count: '21'] [Value: 'i', Count: '65'] [Value: ' ', Count: '62'] [Value: 'r', Count: '208'] [Value: 'u', Count: '38'] [Value: 'p', Count: '49'] [Value: 't', Count: '29'] [Value: 'h', Count: '17'] [Value: '
+', Count: '15'] [Value: 'd', Count: '1'] [Value: 'y', Count: '6']
+Key: 'q' -> [Value: 'u', Count: '56']
+Key: 'r' -> [Value: 'e', Count: '1167'] [Value: ' ', Count: '1298'] [Value: 'i', Count: '490'] [Value: 'n', Count: '103'] [Value: 'g', Count: '38'] [Value: 't', Count: '403'] [Value: 's', Count: '207'] [Value: 'p', Count: '14'] [Value: 'a', Count: '341'] [Value: 'o', Count: '280'] [Value: 'y', Count: '119'] [Value: '
+', Count: '178'] [Value: 'm', Count: '39'] [Value: 'u', Count: '98'] [Value: 'c', Count: '75'] [Value: 'd', Count: '197'] [Value: 'r', Count: '86'] [Value: 'l', Count: '30'] [Value: 'v', Count: '59'] [Value: 'k', Count: '41'] 
+[Value: 'f', Count: '30'] [Value: 'b', Count: '14'] [Value: 'h', Count: '4'] [Value: 'q', Count: '2'] [Value: 'w', Count: '3'] [Value: 'j', Count: '1']
+Key: 's' -> [Value: 'c', Count: '91'] [Value: 't', Count: '642'] [Value: 'a', Count: '452'] [Value: 'o', Count: '282'] [Value: ' ', Count: '1706'] [Value: 'u', Count: '156'] [Value: 's', Count: '425'] [Value: 'e', Count: '627'] [Value: 'i', Count: '299'] [Value: '
+', Count: '343'] [Value: 'y', Count: '19'] [Value: 'h', Count: '510'] [Value: 'f', Count: '7'] [Value: 'p', Count: '97'] [Value: 'm', Count: '15'] [Value: 'w', Count: '91'] [Value: 'l', Count: '23'] [Value: 'd', Count: '15'] [Value: 'k', Count: '25'] [Value: 'b', Count: '22'] [Value: 'q', Count: '8'] [Value: 'n', Count: '7'] [Value: 'g', Count: '2']
+Key: 't' -> [Value: ' ', Count: '1920'] [Value: 'r', Count: '179'] [Value: '
+', Count: '398'] [Value: 'e', Count: '517'] [Value: 'o', Count: '756'] [Value: 'h', Count: '2752'] [Value: 'u', Count: '134'] [Value: 'i', Count: '523'] [Value: 'w', Count: '72'] [Value: 'l', Count: '81'] [Value: 's', Count: '159'] [Value: 't', Count: '105'] [Value: 'y', Count: '72'] [Value: 'a', Count: '246'] [Value: 'c', Count: '16'] [Value: 'f', Count: '5'] [Value: 'n', Count: '7'] [Value: 'b', Count: '1'] [Value: 'd', Count: '2'] [Value: 'm', Count: '1']
+Key: 'u' -> [Value: ' ', Count: '484'] [Value: '
+', Count: '68'] [Value: 't', Count: '305'] [Value: 'g', Count: '102'] [Value: 'n', Count: '348'] [Value: 'f', Count: '9'] [Value: 'c', Count: '149'] [Value: 'r', Count: '489'] [Value: 'l', Count: '218'] [Value: 'b', Count: '51'] [Value: 'e', Count: '88'] [Value: 's', Count: '304'] [Value: 'p', Count: '86'] [Value: 'y', Count: '3'] [Value: 'd', Count: '58'] [Value: 'm', Count: '40'] [Value: 'a', Count: '29'] [Value: 'i', Count: '43'] [Value: 'o', Count: '2'] [Value: 'k', Count: '32'] [Value: 'z', Count: '1']
+Key: 'v' -> [Value: 'e', Count: '724'] [Value: 'a', Count: '36'] [Value: 'i', Count: '100'] [Value: 'o', Count: '19'] [Value: 'y', Count: '5']
+Key: 'w' -> [Value: ' ', Count: '272'] [Value: 'h', Count: '407'] [Value: 'e', Count: '401'] [Value: 'a', Count: '155'] [Value: 'i', Count: '484'] [Value: 'o', Count: '221'] [Value: 's', Count: '61'] [Value: 'n', Count: '45'] 
+[Value: 'r', Count: '33'] [Value: '
+', Count: '63'] [Value: 'l', Count: '3'] [Value: 'd', Count: '7'] [Value: 'm', Count: '1'] [Value: 'v', Count: '1'] [Value: 'c', Count: '1'] [Value: 'f', Count: '2'] [Value: 'y', Count: '1']
+Key: 'x' -> [Value: 'c', Count: '12'] [Value: 'e', Count: '30'] [Value: 'h', Count: '2'] [Value: 't', Count: '10'] [Value: ' ', Count: '5'] [Value: 'o', Count: '1'] [Value: 'i', Count: '26'] [Value: 'a', Count: '5'] [Value: 'p', Count: '14'] [Value: '
+', Count: '1']
+Key: 'y' -> [Value: ' ', Count: '1244'] [Value: 'o', Count: '679'] [Value: 's', Count: '71'] [Value: 'e', Count: '99'] [Value: '
+', Count: '191'] [Value: 'l', Count: '110'] [Value: 'd', Count: '7'] [Value: 'i', Count: '19'] [Value: 'w', Count: '1'] [Value: 'm', Count: '5'] [Value: 'b', Count: '2'] [Value: 'n', Count: '3'] [Value: 'r', Count: '2'] [Value: 't', Count: '4'] [Value: 'a', Count: '3']
+Key: 'z' -> [Value: 'o', Count: '80'] [Value: 'a', Count: '12'] [Value: 'e', Count: '13'] [Value: 'i', Count: '4'] [Value: 'z', Count: '1']
+
+
+
+$ ./hash_mainWin.exe 1
+Index: 10 | Key:
+
+[Value: '
+', Count: '1451'] [Value: 'v', Count: '12'] [Value: 'e', Count: '120'] [Value: 'a', Count: '405'] [Value: 'i', Count: '339'] [Value: 'b', Count: '217'] [Value: 'w', Count: '265'] [Value: 't', Count: '488'] [Value: 's', Count: 
+'269'] [Value: 'y', Count: '106'] [Value: 'l', Count: '146'] [Value: 'o', Count: '99'] [Value: 'd', Count: '68'] [Value: 'p', Count: '154'] [Value: 'm', Count: '114'] [Value: 'n', Count: '126'] [Value: 'u', Count: '31'] [Value: 'f', Count: '107'] [Value: 'h', Count: '157'] [Value: 'g', Count: '124'] [Value: 'c', Count: '52'] [Value: 'r', Count: '22'] [Value: 'k', Count: '4'] [Value: 'j', Count: '28'] [Value: 'q', Count: '3'] [Value: ' ', Count: '1']
+Index: 32 | Key:
+[Value: 's', Count: '1418'] [Value: '
+', Count: '20'] [Value: 'a', Count: '1696'] [Value: 'i', Count: '1405'] [Value: 'k', Count: '120'] [Value: 'n', Count: '566'] [Value: 'w', Count: '1155'] [Value: 'm', Count: '1370'] [Value: 'y', Count: '634'] [Value: 'h', Count: '1228'] [Value: 'c', Count: '622'] [Value: 'f', Count: '766'] [Value: 'o', Count: '830'] [Value: 'b', Count: '949'] [Value: 't', Count: '2526'] [Value: 'l', Count: '662'] [Value: 'p', Count: '502'] [Value: 'r', Count: '292'] [Value: 'd', Count: '653'] [Value: 'v', Count: '125'] [Value: 'g', Count: '455'] [Value: 'e', Count: '244'] [Value: 'u', Count: '177'] [Value: 'j', Count: '182'] [Value: 'q', Count: '25'] [Value: 'z', Count: '1']
+Index: 97 | Key: a
+[Value: 'c', Count: '156'] [Value: ' ', Count: '524'] [Value: 'n', Count: '1696'] [Value: 'l', Count: '543'] [Value: 'r', Count: '717'] [Value: 'm', Count: '200'] [Value: 'd', Count: '238'] [Value: 'y', Count: '314'] [Value: 'u', Count: '152'] [Value: 't', Count: '906'] [Value: 'k', Count: '153'] [Value: 'v', Count: '255'] [Value: 'i', Count: '243'] [Value: 's', Count: '569'] [Value: 'g', Count: '86'] [Value: '
+', Count: '231'] [Value: 'f', Count: '34'] [Value: 'b', Count: '71'] [Value: 'p', Count: '60'] [Value: 'w', Count: '72'] [Value: 'z', Count: '18'] [Value: 'x', Count: '2'] [Value: 'h', Count: '4'] [Value: 'e', Count: '4'] [Value: 'o', Count: '5'] [Value: 'j', Count: '1']
+Index: 98 | Key: b
+[Value: 'u', Count: '208'] [Value: 'y', Count: '106'] [Value: 'o', Count: '179'] [Value: 'e', Count: '460'] [Value: 'r', Count: '81'] [Value: 'j', Count: '5'] [Value: 't', Count: '19'] [Value: 'l', Count: '110'] [Value: 's', Count: '27'] [Value: 'a', Count: '228'] [Value: ' ', Count: '11'] [Value: 'i', Count: '40'] [Value: 'b', Count: '34'] [Value: 'w', Count: '1'] [Value: 'd', Count: '2'] [Value: '
+', Count: '2']
+Index: 99 | Key: c
+[Value: 't', Count: '101'] [Value: 'e', Count: '415'] [Value: 'a', Count: '253'] [Value: 'h', Count: '398'] [Value: 'k', Count: '192'] [Value: 'u', Count: '56'] [Value: 'o', Count: '379'] [Value: 'c', Count: '29'] [Value: 'r', Count: '57'] [Value: 'l', Count: '38'] [Value: 'i', Count: '48'] [Value: 'y', Count: '20'] [Value: 'q', Count: '6'] [Value: ' ', Count: '15'] [Value: 's', Count: '1'] [Value: '
+', Count: '5']
+Index: 100 | Key: d
+[Value: ' ', Count: '1755'] [Value: '
+', Count: '296'] [Value: 'e', Count: '337'] [Value: 'n', Count: '9'] [Value: 'o', Count: '273'] [Value: 's', Count: '119'] [Value: 'y', Count: '51'] [Value: 'r', Count: '47'] [Value: 'i', Count: '198'] [Value: 'a', Count: '111'] [Value: 'g', Count: '54'] [Value: 'u', Count: '84'] [Value: 'v', Count: '9'] [Value: 'h', Count: '1'] [Value: 'd', Count: '15'] [Value: 'l', Count: '17'] [Value: 't', Count: '1'] [Value: 'm', Count: '3'] [Value: 'w', Count: '7'] [Value: 'b', Count: '2'] [Value: 'c', Count: '1'] [Value: 'f', Count: '4']
+Index: 101 | Key: e
+[Value: 'n', Count: '914'] [Value: ' ', Count: '3621'] [Value: 'e', Count: '378'] [Value: 't', Count: '370'] [Value: 'r', Count: '1401'] [Value: 'a', Count: '634'] [Value: 's', Count: '759'] [Value: 'o', Count: '22'] [Value: '', Count: '562'] [Value: 'l', Count: '457'] [Value: 'm', Count: '120'] [Value: 'v', Count: '132'] [Value: 'y', Count: '106'] [Value: 'i', Count: '126'] [Value: 'c', Count: '115'] [Value: 'w', Count: '139'] [Value: 'd', Count: 
+'392'] [Value: 'f', Count: '91'] [Value: 'p', Count: '70'] [Value: 'g', Count: '23'] [Value: 'x', Count: '96'] [Value: 'u', Count: '38'] [Value: 'k', Count: '11'] [Value: 'b', Count: '22'] [Value: 'q', Count: '6'] [Value: 'h', Count: '16']
+Index: 102 | Key: f
+[Value: 'o', Count: '441'] [Value: 'f', Count: '61'] [Value: ' ', Count: '622'] [Value: '
+', Count: '49'] [Value: 'l', Count: '55'] [Value: 'i', Count: '105'] [Value: 'e', Count: '186'] [Value: 'r', Count: '133'] [Value: 'a', Count: '181'] [Value: 'y', Count: '11'] [Value: 'u', Count: '49'] [Value: 't', Count: '52'] [Value: 's', Count: '5']
+Index: 103 | Key: g
+[Value: 'h', Count: '208'] [Value: ' ', Count: '338'] [Value: 'o', Count: '255'] [Value: 'n', Count: '26'] [Value: 'e', Count: '207'] [Value: 's', Count: '34'] [Value: 'r', Count: '162'] [Value: 'u', Count: '22'] [Value: 'l', 
+Count: '27'] [Value: 'p', Count: '3'] [Value: 'a', Count: '92'] [Value: '
+', Count: '70'] [Value: 'i', Count: '92'] [Value: 'm', Count: '12'] [Value: 't', Count: '3'] [Value: 'g', Count: '15'] [Value: 'd', Count: '10'] 
+Index: 104 | Key: h
+[Value: ' ', Count: '657'] [Value: 'y', Count: '218'] [Value: 'o', Count: '590'] [Value: 't', Count: '156'] [Value: 'a', Count: '1071'] [Value: 'e', Count: '2018'] [Value: '
+', Count: '91'] [Value: 'i', Count: '706'] [Value: 'u', Count: '55'] [Value: 'r', Count: '88'] [Value: 'l', Count: '9'] [Value: 's', Count: '19'] [Value: 'b', Count: '9'] [Value: 'm', Count: '3'] [Value: 'w', Count: '6'] [Value: 'd', Count: '11'] [Value: 'g', Count: '1'] [Value: 'f', Count: '3']
+Index: 105 | Key: i
+[Value: 'c', Count: '273'] [Value: 'o', Count: '411'] [Value: 'n', Count: '1198'] [Value: ' ', Count: '630'] [Value: 't', Count: '718'] [Value: 'e', Count: '220'] [Value: 's', Count: '884'] [Value: 'l', Count: '347'] [Value: 'k', Count: '44'] [Value: 'g', Count: '151'] [Value: 'r', Count: '223'] [Value: 'b', Count: '24'] [Value: 'a', Count: '288'] [Value: 'f', Count: '214'] [Value: 'd', Count: '147'] [Value: 'm', Count: '204'] [Value: 'p', Count: '54'] [Value: 'v', Count: '141'] [Value: '
+', Count: '22'] [Value: 'x', Count: '7'] [Value: 'z', Count: '8']
+Index: 106 | Key: j
+[Value: 'e', Count: '143'] [Value: 'a', Count: '12'] [Value: 'u', Count: '56'] [Value: 'o', Count: '11'] 
+Index: 107 | Key: k
+[Value: 'n', Count: '72'] [Value: 'e', Count: '243'] [Value: 'i', Count: '47'] [Value: ' ', Count: '198'] [Value: 'd', Count: '10'] [Value: 's', Count: '41'] [Value: 'l', Count: '5'] [Value: '
+', Count: '123'] [Value: 'f', Count: '3'] [Value: 'w', Count: '1'] [Value: 'm', Count: '1'] [Value: 'r', Count: '2'] [Value: 'y', Count: '1'] [Value: 'u', Count: '1'] [Value: 'o', Count: '3']
+Index: 108 | Key: l
+[Value: 'a', Count: '352'] [Value: 'e', Count: '525'] [Value: 'f', Count: '72'] [Value: 'y', Count: '142'] [Value: '
+', Count: '79'] [Value: 'i', Count: '240'] [Value: 'o', Count: '585'] [Value: 'd', Count: '278'] [Value: 'l', Count: '673'] [Value: 'u', Count: '25'] [Value: 't', Count: '70'] [Value: ' ', Count: '684'] [Value: 's', Count: '63'] [Value: 'k', Count: '18'] [Value: 'n', Count: '2'] [Value: 'm', Count: '18'] [Value: 'g', Count: '1'] [Value: 'c', Count: '23'] [Value: 'v', Count: '17'] [Value: 'r', Count: '3'] [Value: 'w', Count: '2'] [Value: 'p', Count: '4'] [Value: 'b', Count: '3'] [Value: 'h', Count: '1']
+Index: 109 | Key: m
+[Value: ' ', Count: '334'] [Value: 'e', Count: '731'] [Value: 'a', Count: '387'] [Value: 'u', Count: '114'] [Value: 'y', Count: '386'] [Value: 'i', Count: '126'] [Value: '
+', Count: '47'] [Value: 'o', Count: '232'] [Value: 'p', Count: '59'] [Value: 'b', Count: '27'] [Value: 'n', Count: '11'] [Value: 'm', Count: '35'] [Value: 's', Count: '29'] [Value: 't', Count: '1'] [Value: 'd', Count: '5'] [Value: 'l', Count: '1'] [Value: 'f', Count: '1']
+Index: 110 | Key: n
+[Value: 'e', Count: '518'] [Value: 'i', Count: '409'] [Value: 't', Count: '543'] [Value: 'o', Count: '712'] [Value: 'd', Count: '1120'] [Value: ' ', Count: '1141'] [Value: '
+', Count: '191'] [Value: 'g', Count: '507'] [Value: 'c', Count: '224'] [Value: 's', Count: '172'] [Value: 'k', Count: '69'] [Value: 'r', Count: '2'] [Value: 'u', Count: '6'] [Value: 'a', Count: '79'] [Value: 'z', Count: '80'] 
+[Value: 'y', Count: '87'] [Value: 'n', Count: '46'] [Value: 'l', Count: '42'] [Value: 'f', Count: '31'] [Value: 'b', Count: '3'] [Value: 'q', Count: '5'] [Value: 'm', Count: '1'] [Value: 'v', Count: '10'] [Value: 'j', Count: '5'] [Value: 'w', Count: '6'] [Value: 'p', Count: '2'] [Value: 'h', Count: '4']
+Index: 111 | Key: o
+[Value: 'n', Count: '836'] [Value: ' ', Count: '1102'] [Value: '
+', Count: '412'] [Value: 'o', Count: '304'] [Value: 't', Count: '494'] [Value: 'w', Count: '337'] [Value: 'u', Count: '1353'] [Value: 'r', Count: '1090'] [Value: 'f', Count: '510'] [Value: 's', Count: '207'] [Value: 'c', Count: '174'] [Value: 'd', Count: '158'] [Value: 'v', Count: '123'] [Value: 'p', Count: '58'] [Value: 'a', Count: '41'] [Value: 'b', Count: '62'] [Value: 'l', Count: '191'] [Value: 'm', Count: '344'] [Value: 'h', Count: '2'] [Value: 'k', Count: '42'] [Value: 'g', Count: '17'] [Value: 'e', Count: '24'] [Value: 'x', Count: '1'] [Value: 'i', Count: '31'] [Value: 'y', Count: '33'] [Value: 'z', Count: '1'] [Value: 'q', Count: '1']
+Index: 112 | Key: p
+[Value: 'o', Count: '297'] [Value: 'a', Count: '144'] [Value: 'e', Count: '182'] [Value: 'l', Count: '92'] [Value: 's', Count: '21'] [Value: 'i', Count: '65'] [Value: ' ', Count: '62'] [Value: 'r', Count: '208'] [Value: 'u', Count: '38'] [Value: 'p', Count: '49'] [Value: 't', Count: '29'] [Value: 'h', Count: '17'] [Value: '
+', Count: '15'] [Value: 'd', Count: '1'] [Value: 'y', Count: '6']
+Index: 113 | Key: q
+[Value: 'u', Count: '56']
+Index: 114 | Key: r
+[Value: 'e', Count: '1167'] [Value: ' ', Count: '1298'] [Value: 'i', Count: '490'] [Value: 'n', Count: '103'] [Value: 'g', Count: '38'] [Value: 't', Count: '403'] [Value: 's', Count: '207'] [Value: 'p', Count: '14'] [Value: 'a', Count: '341'] [Value: 'o', Count: '280'] [Value: 'y', Count: '119'] [Value: '
+', Count: '178'] [Value: 'm', Count: '39'] [Value: 'u', Count: '98'] [Value: 'c', Count: '75'] [Value: 'd', Count: '197'] [Value: 'r', Count: '86'] [Value: 'l', Count: '30'] [Value: 'v', Count: '59'] [Value: 'k', Count: '41'] 
+[Value: 'f', Count: '30'] [Value: 'b', Count: '14'] [Value: 'h', Count: '4'] [Value: 'q', Count: '2'] [Value: 'w', Count: '3'] [Value: 'j', Count: '1']
+Index: 115 | Key: s
+[Value: 'c', Count: '91'] [Value: 't', Count: '642'] [Value: 'a', Count: '452'] [Value: 'o', Count: '282'] [Value: ' ', Count: '1706'] [Value: 'u', Count: '156'] [Value: 's', Count: '425'] [Value: 'e', Count: '627'] [Value: 'i', Count: '299'] [Value: '
+', Count: '343'] [Value: 'y', Count: '19'] [Value: 'h', Count: '510'] [Value: 'f', Count: '7'] [Value: 'p', Count: '97'] [Value: 'm', Count: '15'] [Value: 'w', Count: '91'] [Value: 'l', Count: '23'] [Value: 'd', Count: '15'] [Value: 'k', Count: '25'] [Value: 'b', Count: '22'] [Value: 'q', Count: '8'] [Value: 'n', Count: '7'] [Value: 'g', Count: '2']
+Index: 116 | Key: t
+[Value: ' ', Count: '1920'] [Value: 'r', Count: '179'] [Value: '
+', Count: '398'] [Value: 'e', Count: '517'] [Value: 'o', Count: '756'] [Value: 'h', Count: '2752'] [Value: 'u', Count: '134'] [Value: 'i', Count: '523'] [Value: 'w', Count: '72'] [Value: 'l', Count: '81'] [Value: 's', Count: '159'] [Value: 't', Count: '105'] [Value: 'y', Count: '72'] [Value: 'a', Count: '246'] [Value: 'c', Count: '16'] [Value: 'f', Count: '5'] [Value: 'n', Count: '7'] [Value: 'b', Count: '1'] [Value: 'd', Count: '2'] [Value: 'm', Count: '1']
+Index: 117 | Key: u
+[Value: ' ', Count: '484'] [Value: '
+', Count: '68'] [Value: 't', Count: '305'] [Value: 'g', Count: '102'] [Value: 'n', Count: '348'] [Value: 'f', Count: '9'] [Value: 'c', Count: '149'] [Value: 'r', Count: '489'] [Value: 'l', Count: '218'] [Value: 'b', Count: '51'] [Value: 'e', Count: '88'] [Value: 's', Count: '304'] [Value: 'p', Count: '86'] [Value: 'y', Count: '3'] [Value: 'd', Count: '58'] [Value: 'm', Count: '40'] [Value: 'a', Count: '29'] [Value: 'i', Count: '43'] [Value: 'o', Count: '2'] [Value: 'k', Count: '32'] [Value: 'z', Count: '1']
+Index: 118 | Key: v
+[Value: 'e', Count: '724'] [Value: 'a', Count: '36'] [Value: 'i', Count: '100'] [Value: 'o', Count: '19'] [Value: 'y', Count: '5']
+Index: 119 | Key: w
+[Value: ' ', Count: '272'] [Value: 'h', Count: '407'] [Value: 'e', Count: '401'] [Value: 'a', Count: '155'] [Value: 'i', Count: '484'] [Value: 'o', Count: '221'] [Value: 's', Count: '61'] [Value: 'n', Count: '45'] [Value: 'r', Count: '33'] [Value: '
+', Count: '63'] [Value: 'l', Count: '3'] [Value: 'd', Count: '7'] [Value: 'm', Count: '1'] [Value: 'v', Count: '1'] [Value: 'c', Count: '1'] [Value: 'f', Count: '2'] [Value: 'y', Count: '1']
+Index: 120 | Key: x
+[Value: 'c', Count: '12'] [Value: 'e', Count: '30'] [Value: 'h', Count: '2'] [Value: 't', Count: '10'] [Value: ' ', Count: '5'] [Value: 'o', Count: '1'] [Value: 'i', Count: '26'] [Value: 'a', Count: '5'] [Value: 'p', Count: '14'] [Value: '
+', Count: '1']
+Index: 121 | Key: y
+[Value: ' ', Count: '1244'] [Value: 'o', Count: '679'] [Value: 's', Count: '71'] [Value: 'e', Count: '99'] [Value: '
+', Count: '191'] [Value: 'l', Count: '110'] [Value: 'd', Count: '7'] [Value: 'i', Count: '19'] [Value: 'w', Count: '1'] [Value: 'm', Count: '5'] [Value: 'b', Count: '2'] [Value: 'n', Count: '3'] [Value: 'r', Count: '2'] [Value: 't', Count: '4'] [Value: 'a', Count: '3']
+Index: 122 | Key: z
+[Value: 'o', Count: '80'] [Value: 'a', Count: '12'] [Value: 'e', Count: '13'] [Value: 'i', Count: '4'] [Value: 'z', Count: '1']

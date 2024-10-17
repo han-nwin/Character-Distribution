@@ -609,9 +609,9 @@ int main(int argc, char* argv[]){
         //Insert to the Tree
         stringTree.insert(std::string(buffer),std::string(1,peek_char));
     }
-    //stringTree.display();
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
+    //stringTree.display();
     //===================DONE STORING INPUT=====================//
     //Work on the output
     std::string outString = firstString; //Create an output string and initialize with firstString
@@ -639,7 +639,7 @@ int main(int argc, char* argv[]){
     outString.pop_back(); outString.pop_back();  // Remove garbage
 
     std::cout << "====Final String====" << std::endl;
-    std::cout << "\'" << outString << "\'" << std::endl;
+    //std::cout << "\'" << outString << "\'" << std::endl;
 
     // Create and open the output file
     std::ofstream outfile("out.txt");  

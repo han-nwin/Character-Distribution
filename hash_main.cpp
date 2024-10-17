@@ -352,10 +352,10 @@ class HashTable{
             rand_num_gen.seed(ran_device()); //seed the rng
         }
 
-        /* ~HashTable() {
+        ~HashTable() {
             // Clear the table to ensure all entries are properly deallocated
             table.clear(); 
-        } */
+        }
 
 
         /**
@@ -467,7 +467,7 @@ int main(int argc, char* argv[]){
     std::size_t infileLength = static_cast<std::size_t>(fileSize); // Cast fileSize to an integer (int or size_t)
     //===========================================================//
 
-    HashTable<std::string,std::string> stringTable;//Declare the Hash table structure
+    HashTable<std::string,std::string> stringTable(infileLength);//Declare the Hash table structure and initialize the length = file length
     
     char next_char;
     char peek_char;
@@ -513,9 +513,10 @@ int main(int argc, char* argv[]){
         //Insert to the Hash Table
         stringTable.insert(std::string(buffer),std::string(1,peek_char));
     }
-    //stringTable.display();
+    
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
+    //stringTable.display();
     //===================DONE STORING INPUT=====================//
     //Work on the output
     std::string outString = firstString; //Create an output string and initialize with firstString
@@ -543,7 +544,7 @@ int main(int argc, char* argv[]){
     outString.pop_back(); outString.pop_back();  // Remove garbage
 
     std::cout << "====Final String====" << std::endl;
-    std::cout << "\'" << outString << "\'" << std::endl;
+    //std::cout << "\'" << outString << "\'" << std::endl;
 
     // Create and open the output file
     std::ofstream outfile("out.txt");  
