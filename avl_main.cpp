@@ -515,7 +515,12 @@ void AVLTree<KeyType, ValueType>::find(const KeyType & k) const {
 //Implementation of public remove(key)
 template <typename KeyType, typename ValueType>
 void AVLTree<KeyType, ValueType>::remove(const KeyType & k){
-    remove(k,this->root);
+    try {
+        remove(k, this->root);  // Call private remove method
+        std::cout << "Remove successful" << std::endl;  // Print success message if no error occurs
+    } catch (const std::runtime_error &e) {
+        std::cerr << "Error: " << e.what() << std::endl;  // Handle error if key not found
+    }
 }
 
 //Implementation of public getRandVar(key)
@@ -648,7 +653,7 @@ int main(int argc, char* argv[]){
     std::cout << "====Export to out.txt file successfully!====" << std::endl;
     
     return 0;
-}
+} 
 
 
 
@@ -691,34 +696,34 @@ int main(int argc, char* argv[]){
     intTree.display();
 
     // Test the AVL tree for strings
-    AVLTree<std::string,std::string> stringTree;
-    std::cout << "Empty? "<< stringTree.empty() << std::endl;
+    AVLTree<std::string,std::string> stringTree1;
+    std::cout << "Empty? "<< stringTree1.empty() << std::endl;
 
     // Insert string keys with associated string values
-    stringTree.insert("banana", "ba");
-    stringTree.insert("apple", "ap");
-    stringTree.insert("orange", "or");
+    stringTree1.insert("banana", "ba");
+    stringTree1.insert("apple", "ap");
+    stringTree1.insert("orange", "or");
 
     // Insert some duplicate values to check count increments
-    stringTree.insert("banana", "ba"); // Increment count for "ba" under "banana"
-    stringTree.insert("orange", "or"); // Increment count for "or" under "orange"
-    std::cout << "Size: " << stringTree.size() << std::endl;
+    stringTree1.insert("banana", "ba"); // Increment count for "ba" under "banana"
+    stringTree1.insert("orange", "or"); // Increment count for "or" under "orange"
+    std::cout << "Size: " << stringTree1.size() << std::endl;
 
     std::cout << "In-order traversal of string AVL tree with values and counts:\n";
-    stringTree.display();
-    std::cout << "SIZE: " << stringTree.size() << std::endl;
-    std::cout << "Empty? "<< stringTree.empty() << std::endl;
+    stringTree1.display();
+    std::cout << "SIZE: " << stringTree1.size() << std::endl;
+    std::cout << "Empty? "<< stringTree1.empty() << std::endl;
 
     std::string strvaltofind = "banana";
     std::cout << "Find key: " << strvaltofind << std::endl;
-    stringTree.find("banana");
+    stringTree1.find("banana");
     
     std::string strvaltorm = "banana";
     std::cout << "Remove key: " << strvaltorm << std::endl;
-    stringTree.remove(strvaltorm);
-    stringTree.display();
+    stringTree1.remove(strvaltorm);
+    stringTree1.display();
     
     return 0;
 }
-*/
 
+*/
