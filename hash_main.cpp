@@ -55,6 +55,8 @@ class HashTable{
              */
             ValueCount(const ValueType & v, int c) : value(v), count(c) {}
         };
+
+        enum EntryType {ACTIVE, EMPTY, DELETED};
         /**
          * @struct HashEntry
          * @brief Represents a key with associated values and their counts in the hash table.
@@ -67,18 +69,29 @@ class HashTable{
         struct HashEntry {
             KeyType key; // The key of the entry.
             std::vector<ValueCount> value_count; // Vector of values and their counts.
-            bool isActive; // A flag indicating whether the entry is active or logically deleted.
+            EntryType info; // A flag indicating whether the entry is active or logically deleted.
             
             /**
              * @brief Constructs a HashEntry.
              * @param k The key of the entry.
-             * @param vc The vector of associated values and their counts.
-             * @param active A boolean flag indicating if the entry is active (defaults to true).
+             * @param v The value associated with the key.
+             * @param entry_type The status of the entry (ACTIVE, EMPTY, or DELETED).
              */
-            HashEntry(const KeyType & key, const ValueType & value, bool active = true)
-                : key(k), isActive(active) {
-                    value_count.pushback(value,1);//Add the value to the array and initialize the count to 1
-                }
+            HashEntry(const KeyType & k, const ValueType & v, EntryType entry_type = ACTIVE)
+                : key(k), info(entry_type) {
+                value_count.push_back(ValueCount(v, 1));  // Add the value with count 1
+            }
+
+            /**
+             * @brief Move constructor for efficient insertion.
+             * @param k The key of the entry (moved).
+             * @param v The value associated with the key (moved).
+             * @param entry_type The status of the entry (ACTIVE, EMPTY, or DELETED).
+             */
+            HashEntry(KeyType && k, ValueType && v, EntryType entry_type = ACTIVE)
+                : key(std::move(k)), info(entry_type) {
+                value_count.push_back(ValueCount(std::move(v), 1));  // Move the value with count 1
+            }
         };
 
         int tableSize;
@@ -96,7 +109,7 @@ class HashTable{
             }
             return true;
         }
-        // Function to find the next prime number greater than or equal to n
+        // Helper function to find the next prime number greater than or equal to n
         int nextPrime(int n) {
             // If n is less than 2, return the first prime number (2)
             if (n <= 2) return 2;
