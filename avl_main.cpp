@@ -642,7 +642,7 @@ int main(int argc, char* argv[]){
     }
     //outString.pop_back(); outString.pop_back();  // Remove garbage
     
-    std::cout << "====Final String====" << std::endl;
+    //std::cout << "====Final String====" << std::endl;
     //std::cout << "\'" << outString << "\'" << std::endl;
 
     // Create and open the output file
