@@ -633,10 +633,12 @@ int main(int argc, char* argv[]){
             toAdd = stringTree.getRandVar(key); // Get new random value based on updated key
         }
     } catch (const std::runtime_error & e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+        std::cout << "Caught runtime_error: " << e.what() << std::endl;
     }
-
-    //std::cout << "Final Output String: " << outString << std::endl;
+    outString.pop_back(); outString.pop_back();  // Remove garbage
+    
+    std::cout << "====Final String====" << std::endl;
+    //std::cout << "\'" << outString << "\'" << std::endl;
 
     // Create and open the output file
     std::ofstream outfile("out.txt");  

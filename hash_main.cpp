@@ -523,36 +523,39 @@ int main(int argc, char* argv[]){
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
     stringTable.display();
-    /* std::cout << "GET RAND VAR" << std::endl;
-    std::string key = "\n";
-    std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl; */
+    std::cout << "GET RAND VAR" << std::endl;
+    std::string key = " ";
+    std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl; 
     //===================DONE STORING INPUT=====================//
-    //Work on the output
-    std::string outString = firstString; //Create an output string and initialize with firstString
-    std::string windowString = firstString; //Create a window and initialize with firstString
-    
+    // Work on the output
+    /* std::string outString = firstString;
+    std::string windowString = firstString;
     std::string key = windowString;
-    std::string toAdd = stringTable.getRandVar(std::string(key));
-    try {
-        // Get initial random value based on the first key
-        std::string key = windowString; // Initialize the key with windowString
-        std::string toAdd = stringTable.getRandVar(key); // Get random value for key
 
-        while (outString.size() < infileLength) {
-            outString += toAdd;          // Append the random value to the output string
-            windowString.erase(0, 1);     // Remove the first character of windowString
-            windowString += toAdd;        // Append the new character at the end
-            // Update the key with the updated windowString
+    try {
+        std::string toAdd = stringTable.getRandVar(key);
+
+        while (outString.length() <= infileLength) {
+            // Append to outString
+            outString += toAdd;
+
+            // Update the window by removing the first character and adding the next one
+            windowString = windowString.substr(1) + toAdd;
+
+            // Update the key for the next iteration
             key = windowString;
-            toAdd = stringTable.getRandVar(key); // Get new random value based on updated key
+
+            // Get the next random value for the current window
+            toAdd = stringTable.getRandVar(key);
         }
-    } catch (const std::runtime_error & e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+    } catch (const std::runtime_error &e) {
+        std::cout << "Caught runtime_error: " << e.what() << std::endl;
     }
-    //outString.pop_back(); outString.pop_back();  // Remove garbage
+
+    outString.pop_back(); outString.pop_back();  // Remove any garbage characters
 
     std::cout << "====Final String====" << std::endl;
-    //std::cout << "\'" << outString << "\'" << std::endl;
+    //std::cout << "'" << outString << "'\n";
 
     // Create and open the output file
     std::ofstream outfile("out.txt");  
@@ -564,7 +567,6 @@ int main(int argc, char* argv[]){
     outfile << outString;
     outfile.close();
     std::cout << "====Export to out.txt file successfully!====" << std::endl;
-
+ */
     return 0;
-
 }
