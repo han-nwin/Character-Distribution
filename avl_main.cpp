@@ -383,7 +383,7 @@ class AVLTree {
         ValueType getRandVar(const KeyType & k, AvlNode* root) {
             AvlNode* node = find(k, this->root);
             if (node == nullptr) {
-                std::cerr << "Key not found in getRandVar: " << k << std::endl;
+                std::cerr << "Key not found in getRandVar: \'" << k << "\'" << std::endl;
                 throw std::runtime_error("Key not found");
             }
             int totalWeight = 0;
@@ -611,35 +611,32 @@ int main(int argc, char* argv[]){
     }
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
-    //stringTree.display();
+    stringTree.display();
     //===================DONE STORING INPUT=====================//
-    //Work on the output
-    std::string outString = firstString; //Create an output string and initialize with firstString
-    std::string windowString = firstString; //Create a window and initialize with firstString
-    
-    std::string key = windowString;
-    std::string toAdd = stringTree.getRandVar(std::string(key));
-    while(outString.length() <= infileLength ){
-        try{
-        outString += toAdd;
-        windowString.erase(0,1);
-        windowString += toAdd;
-        //std::cout << "Get a random value of key: \'" << key << "\'-> Value: \'" << toAdd << "\'" << std::endl;
-        key = windowString;
-        //std::cout << "Key: |" << key << std::endl;
-        toAdd = stringTree.getRandVar(std::string(key));
-        //std::cout << "toAdd: |" << toAdd << std::endl;
-        } catch (const std::runtime_error &e){
-             std::cout << "Caught runtime_error: " << e.what() << std::endl;
-            //Catch the runtime error of getRandvar and break the loop
-            break;
+    /// Work on the output
+    std::string outString = firstString; // Create an output string and initialize it with firstString
+    std::string windowString = firstString; // Window of sliding characters
+    std::cout << "Initial Output String: " << outString << std::endl;
+
+    try {
+        // Get initial random value based on the first key
+        std::string key = windowString; // Initialize the key with windowString
+        std::string toAdd = stringTree.getRandVar(key); // Get random value for key
+
+        while (outString.size() < infileLength) {
+            outString += toAdd;          // Append the random value to the output string
+            windowString.erase(0, 1);     // Remove the first character of windowString
+            windowString += toAdd;        // Append the new character at the end
+
+            // Update the key with the updated windowString
+            key = windowString;
+            toAdd = stringTree.getRandVar(key); // Get new random value based on updated key
         }
-
+    } catch (const std::runtime_error & e) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
-    outString.pop_back(); outString.pop_back();  // Remove garbage
 
-    std::cout << "====Final String====" << std::endl;
-    //std::cout << "\'" << outString << "\'" << std::endl;
+    //std::cout << "Final Output String: " << outString << std::endl;
 
     // Create and open the output file
     std::ofstream outfile("out.txt");  

@@ -118,7 +118,7 @@ class HashTable{
             }
             return n;
         }
-        static constexpr double LOAD_FACTOR = 0.4; //Constant LOAD FACTOR
+        static constexpr double LOAD_FACTOR = 0.7; //Constant LOAD FACTOR
         int tableSize;
         int currentSize;
         std::vector<HashEntry> table; // The underlying array represents the hash table
@@ -136,7 +136,7 @@ class HashTable{
          */
         template <typename T = KeyType>
         typename std::enable_if<std::is_integral<T>::value, size_t>::type
-        hash(const T& key) const {
+        hash(const T & key) const {
             size_t largePrime = 2654435761;  // Prime constant (derived from golden ratio)
             return (key * largePrime) % tableSize;
         }
@@ -156,15 +156,19 @@ class HashTable{
         */
         template <typename T = KeyType>
         typename std::enable_if<std::is_same<T, std::string>::value, size_t>::type
-        hash(const T& key) const {
-            size_t hashVal = 0;
-            size_t prime = 37; // Prime base
+        hash(const T & key) const {
+            size_t hashVal = 5381;  // A more suitable starting value for djb2 hash
+            size_t prime = 33;  // A smaller prime number often used for hashing strings
             
             for (char ch : key) {
-                hashVal = (prime * hashVal + ch) % tableSize;  // Modulo to prevent overflow
+                // Use bitwise left shift to amplify the effect of each character and add the character value
+                hashVal = ((hashVal*prime) + ch); 
             }
             
-            return hashVal;  // Modulo tableSize to get final hash within range
+            hashVal = hashVal % tableSize;  // Ensure it fits within the table size
+            //std::cout << "Hashing key: '" << key << "', Hash val: " << hashVal << std::endl;
+            
+            return hashVal;
         }
         /**
          * @brief Rehashes the hash table when the load factor becomes too high.
@@ -192,6 +196,7 @@ class HashTable{
             for (const auto &entry : oldTable) {
                 if (entry.info == ACTIVE) {
                     for (const auto &vc : entry.value_count) {
+                        //std::cout << "Rehashing key: '" << entry.key << "'" << std::endl;
                         privateInsert(entry.key, vc.value);  // Rehash and reinsert the old key-value pair
                     }
                 }
@@ -204,7 +209,7 @@ class HashTable{
          * @param k The key to be inserted.
          * @param v The value associated with the key.
          */
-        void privateInsert(const KeyType& k, const ValueType& v) {
+        void privateInsert(const KeyType & k, const ValueType & v) {
             size_t index = hash(k); // Hash the key to an index
             size_t firstDeleted = -1; // Track the first `DELETED` slot found during probing
 
@@ -258,7 +263,7 @@ class HashTable{
 
             // Perform linear probing to find the key
             while (table[index].info != EMPTY) {  // Continue until an EMPTY slot is found
-                if (table[index].info == ACTIVE && table[index].key == k) {
+                if ((table[index].info == ACTIVE) && (table[index].key == k)) {
                     return &table[index];  // Return a pointer to the HashEntry if it's ACTIVE and matches the key
                 }
                 // If the entry is DELETED or doesn't match, continue probing
@@ -300,7 +305,7 @@ class HashTable{
         ValueType privateGetRandVar(const KeyType & k) {
             HashEntry* entry = privateFind(k);
             if (entry == nullptr) {
-                std::cerr << "Key not found in getRandVar: " << k << std::endl;
+                std::cerr << "Key not found in privateGetRandVar: \'" << k << "\'" << std::endl;
                 throw std::runtime_error("Key not found");
             }
             int totalWeight = 0;
@@ -333,10 +338,11 @@ class HashTable{
         void privateDisplay() const {
             for(size_t i = 0; i < tableSize; i++){
                 if(table[i].info == ACTIVE){
-                    std::cout << "Index: " << i << " | Key: " << table[i].key << "\n"; 
+                    std::cout << "Index: " << i << " | Key: \'" << table[i].key << "\'\n"; 
                     for (const auto& vc : table[i].value_count) {
                         std::cout << "[Value: \'" << vc.value << "\', Count: \'" << vc.count << "\'] ";
                     }
+                std::cout << std::endl;    
                 std::cout << std::endl;    
                 }
             }
@@ -352,10 +358,10 @@ class HashTable{
             rand_num_gen.seed(ran_device()); //seed the rng
         }
 
-        ~HashTable() {
+        /* ~HashTable() {
             // Clear the table to ensure all entries are properly deallocated
             table.clear(); 
-        }
+        } */
 
 
         /**
@@ -467,7 +473,7 @@ int main(int argc, char* argv[]){
     std::size_t infileLength = static_cast<std::size_t>(fileSize); // Cast fileSize to an integer (int or size_t)
     //===========================================================//
 
-    HashTable<std::string,std::string> stringTable(infileLength);//Declare the Hash table structure and initialize the length = file length
+    HashTable<std::string,std::string> stringTable(1);//Declare the Hash table structure and initialize the length = file length
     
     char next_char;
     char peek_char;
@@ -492,7 +498,7 @@ int main(int argc, char* argv[]){
     peek_char = file.peek();
     //Insert to the Hash Table
     stringTable.insert(std::string(buffer),std::string(1,peek_char));
-    
+
     // Slide the window through the file, one character at a time
     while (file.get(next_char)) {
         // Replace newline or tab with a space
@@ -516,7 +522,10 @@ int main(int argc, char* argv[]){
     
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
-    //stringTable.display();
+    stringTable.display();
+    /* std::cout << "GET RAND VAR" << std::endl;
+    std::string key = "\n";
+    std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl; */
     //===================DONE STORING INPUT=====================//
     //Work on the output
     std::string outString = firstString; //Create an output string and initialize with firstString
@@ -524,24 +533,23 @@ int main(int argc, char* argv[]){
     
     std::string key = windowString;
     std::string toAdd = stringTable.getRandVar(std::string(key));
-    while(outString.length() <= infileLength ){
-        try{
-        outString += toAdd;
-        windowString.erase(0,1);
-        windowString += toAdd;
-        //std::cout << "Get a random value of key: \'" << key << "\'-> Value: \'" << toAdd << "\'" << std::endl;
-        key = windowString;
-        //std::cout << "Key: |" << key << std::endl;
-        toAdd = stringTable.getRandVar(std::string(key));
-        //std::cout << "toAdd: |" << toAdd << std::endl;
-        } catch (const std::runtime_error &e){
-             std::cout << "Caught runtime_error: " << e.what() << std::endl;
-            //Catch the runtime error of getRandvar and break the loop
-            break;
-        }
+    try {
+        // Get initial random value based on the first key
+        std::string key = windowString; // Initialize the key with windowString
+        std::string toAdd = stringTable.getRandVar(key); // Get random value for key
 
+        while (outString.size() < infileLength) {
+            outString += toAdd;          // Append the random value to the output string
+            windowString.erase(0, 1);     // Remove the first character of windowString
+            windowString += toAdd;        // Append the new character at the end
+            // Update the key with the updated windowString
+            key = windowString;
+            toAdd = stringTable.getRandVar(key); // Get new random value based on updated key
+        }
+    } catch (const std::runtime_error & e) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
-    outString.pop_back(); outString.pop_back();  // Remove garbage
+    //outString.pop_back(); outString.pop_back();  // Remove garbage
 
     std::cout << "====Final String====" << std::endl;
     //std::cout << "\'" << outString << "\'" << std::endl;
@@ -556,7 +564,7 @@ int main(int argc, char* argv[]){
     outfile << outString;
     outfile.close();
     std::cout << "====Export to out.txt file successfully!====" << std::endl;
-    
+
     return 0;
 
 }
