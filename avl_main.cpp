@@ -383,10 +383,10 @@ class AVLTree {
          * @param AvlNode * root: Pointer to the root Node of the substree
          * @return ValueType value
          */
-        ValueType getRandVar(const KeyType & k, AvlNode* root) {
+        ValueType getRandVal(const KeyType & k, AvlNode * root) {
             AvlNode* node = find(k, this->root);
             if (node == nullptr) {
-                std::cerr << "Key not found in getRandVar: \'" << k << "\'" << std::endl;
+                std::cerr << "Key not found in getRandVal: \'" << k << "\'" << std::endl;
                 throw std::runtime_error("Key not found");
             }
             int totalWeight = 0;
@@ -471,7 +471,7 @@ class AVLTree {
          * @param Keytype & k
          * @return ValueType value
          */
-        ValueType getRandVar(const KeyType & k);
+        ValueType getRandVal(const KeyType & k);
 
         /**
          * @brief Public method that displays the AVL Tree in in-order traversal.
@@ -526,10 +526,10 @@ void AVLTree<KeyType, ValueType>::remove(const KeyType & k){
     }
 }
 
-//Implementation of public getRandVar(key)
+//Implementation of public getRandVal(key)
 template <typename KeyType, typename ValueType>
-ValueType AVLTree<KeyType, ValueType>::getRandVar(const KeyType & k) {
-    return getRandVar(k,this->root);
+ValueType AVLTree<KeyType, ValueType>::getRandVal(const KeyType & k) {
+    return getRandVal(k,this->root);
 }
 
 // Implementation of public display()
@@ -606,6 +606,10 @@ int main(int argc, char* argv[]){
 
         
         peek_char = file.peek();
+        // Check if peek() has returned EOF
+        if (peek_char == EOF) {
+            break; // Exit the loop if we're at the end of the file
+        }
         // Output the current window
         /* std::cout << "Insert Key: \'" << buffer <<"\'" << std::endl;
         std::cout << "Value: \'" << peek_char <<"\'" << std::endl; */
@@ -625,16 +629,17 @@ int main(int argc, char* argv[]){
     
 
     try {
-        std::string toAdd = stringTree.getRandVar(key); // Get random value for key
+        std::string toAdd = stringTree.getRandVal(key); // Get random value for key
         int k = 0;
         while (outString.length() < infileLength) {
             outString += toAdd;          // Append the random value to the output string
-            windowString.erase(0, 1);     // Remove the first character of windowString
-            windowString += toAdd;        // Append the new character at the end
+            // Update the window by removing the first character and adding the next one
+            windowString.erase(0, 1);// Remove the first character of windowString
+            windowString.append(toAdd);// Append the new string (toAdd) to the end of windowString
 
             // Update the key with the updated windowString
             key = windowString;
-            toAdd = stringTree.getRandVar(key); // Get new random value based on updated key
+            toAdd = stringTree.getRandVal(key); // Get new random value based on updated key
             k++;
         }
     } catch (const std::runtime_error & e) {

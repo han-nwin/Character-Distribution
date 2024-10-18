@@ -302,10 +302,10 @@ class HashTable{
          * @return ValueType value
          */
         std::mt19937 rand_num_gen;  // Each instance gets its own rng (random number generator). Seeding happens in the constructor
-        ValueType privateGetRandVar(const KeyType k) {
+        ValueType privateGetRandVal(const KeyType & k) {
             HashEntry* entry = privateFind(k);
             if (entry == nullptr) {
-                std::cerr << "Key not found in privateGetRandVar: \'" << k << "\'" << std::endl;
+                std::cerr << "Key not found in privateGetRandVal: \'" << k << "\'" << std::endl;
                 throw std::runtime_error("Key not found");
             }
             int totalWeight = 0;
@@ -324,6 +324,7 @@ class HashTable{
                     return vc.value; // Pick this value
                 }
             }
+            // If we reach here, something went wrong, throw an exception
             return ValueType(); //Fallback, though we should never reach here
         }
        
@@ -438,8 +439,8 @@ class HashTable{
          * @param Keytype & k
          * @return ValueType value
          */
-        ValueType getRandVar(const KeyType & k){
-            return privateGetRandVar(k);
+        ValueType getRandVal(const KeyType & k){
+            return privateGetRandVal(k);
         }
 
         /**
@@ -473,7 +474,7 @@ int main(int argc, char* argv[]){
     std::size_t infileLength = static_cast<std::size_t>(fileSize); // Cast fileSize to an integer (int or size_t)
     //===========================================================//
 
-    HashTable<std::string,std::string> stringTable(1);//Declare the Hash table structure and initialize the length = file length
+    HashTable<std::string,std::string> stringTable;//Declare the Hash table structure and initialize the length = file length
     
     char next_char;
     char peek_char;
@@ -513,6 +514,10 @@ int main(int argc, char* argv[]){
 
         
         peek_char = file.peek();
+        // Check if peek() has returned EOF
+        if (peek_char == EOF) {
+            break; // Exit the loop if we're at the end of the file
+        }
         // Output the current window
         /* std::cout << "Insert Key: \'" << buffer <<"\'" << std::endl;
         std::cout << "Value: \'" << peek_char <<"\'" << std::endl; */
@@ -525,7 +530,7 @@ int main(int argc, char* argv[]){
     /* stringTable.display();
     std::cout << "GET RAND VAR" << std::endl;
     std::string key = "\n";
-    std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl;  */
+    std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVal(std::string(key)) << "\'" << std::endl;  */
     //===================DONE STORING INPUT=====================//
     // Work on the output
     
@@ -534,7 +539,7 @@ int main(int argc, char* argv[]){
     std::string key = windowString;
 
     try {
-        std::string toAdd = stringTable.getRandVar(key);
+        std::string toAdd = stringTable.getRandVal(key);
 
         while (outString.length() <= infileLength) {
             // Append to outString
@@ -550,7 +555,7 @@ int main(int argc, char* argv[]){
             key = windowString;
 
             // Get the next random value for the current window
-            toAdd = stringTable.getRandVar(key);
+            toAdd = stringTable.getRandVal(key);
         }
     } catch (const std::runtime_error &e) {
         std::cout << "Caught runtime_error: " << e.what() << std::endl;
