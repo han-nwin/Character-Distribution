@@ -635,7 +635,7 @@ int main(int argc, char* argv[]){
     } catch (const std::runtime_error & e) {
         std::cout << "Caught runtime_error: " << e.what() << std::endl;
     }
-    outString.pop_back(); outString.pop_back();  // Remove garbage
+    //outString.pop_back(); outString.pop_back();  // Remove garbage
     
     std::cout << "====Final String====" << std::endl;
     //std::cout << "\'" << outString << "\'" << std::endl;

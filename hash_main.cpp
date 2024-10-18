@@ -524,7 +524,7 @@ int main(int argc, char* argv[]){
     delete[] buffer; // Clean up dynamically allocated memory
     stringTable.display();
     std::cout << "GET RAND VAR" << std::endl;
-    std::string key = " ";
+    std::string key = "\n";
     std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl; 
     //===================DONE STORING INPUT=====================//
     // Work on the output
