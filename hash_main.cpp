@@ -302,7 +302,7 @@ class HashTable{
          * @return ValueType value
          */
         std::mt19937 rand_num_gen;  // Each instance gets its own rng (random number generator). Seeding happens in the constructor
-        ValueType privateGetRandVar(const KeyType & k) {
+        ValueType privateGetRandVar(const KeyType k) {
             HashEntry* entry = privateFind(k);
             if (entry == nullptr) {
                 std::cerr << "Key not found in privateGetRandVar: \'" << k << "\'" << std::endl;
@@ -427,7 +427,7 @@ class HashTable{
          * @param k The key to be removed.
          * @throws std::runtime_error if the key is not found.
          */
-        void remove(const KeyType &k) {
+        void remove(const KeyType k) {
             if (!privateRemove(k)) {
                 throw std::runtime_error("Error: Key not found in the hash table.");
             }
@@ -528,6 +528,7 @@ int main(int argc, char* argv[]){
     std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl;  */
     //===================DONE STORING INPUT=====================//
     // Work on the output
+    
     std::string outString = firstString;
     std::string windowString = firstString;
     std::string key = windowString;
@@ -540,7 +541,10 @@ int main(int argc, char* argv[]){
             outString += toAdd;
 
             // Update the window by removing the first character and adding the next one
-            windowString = windowString.substr(1) + toAdd;
+            // Remove the first character of windowString
+            windowString.erase(0, 1);
+            // Append the new string (toAdd) to the end of windowString
+            windowString.append(toAdd);
 
             // Update the key for the next iteration
             key = windowString;
@@ -552,7 +556,7 @@ int main(int argc, char* argv[]){
         std::cout << "Caught runtime_error: " << e.what() << std::endl;
     }
 
-    outString.pop_back(); outString.pop_back();  // Remove any garbage characters
+    //outString.pop_back(); outString.pop_back();  // Remove any garbage characters
 
     //std::cout << "====Final String====" << std::endl;
     //std::cout << "'" << outString << "'\n";

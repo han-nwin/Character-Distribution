@@ -13,6 +13,9 @@
 #include <cstring> //for cstring operations
 #include <random>
 #include <ctime>
+#include <string>
+#include <stdexcept>
+#include <limits>
 
 /**
  * @class AVLTree
@@ -611,7 +614,7 @@ int main(int argc, char* argv[]){
     }
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
-    stringTree.display();
+    //stringTree.display();
     //===================DONE STORING INPUT=====================//
     /// Work on the output
     std::string outString = firstString; // Create an output string and initialize it with firstString
@@ -623,8 +626,8 @@ int main(int argc, char* argv[]){
 
     try {
         std::string toAdd = stringTree.getRandVar(key); // Get random value for key
-        
-        while (outString.size() < infileLength) {
+        int k = 0;
+        while (outString.length() < infileLength) {
             outString += toAdd;          // Append the random value to the output string
             windowString.erase(0, 1);     // Remove the first character of windowString
             windowString += toAdd;        // Append the new character at the end
@@ -632,6 +635,7 @@ int main(int argc, char* argv[]){
             // Update the key with the updated windowString
             key = windowString;
             toAdd = stringTree.getRandVar(key); // Get new random value based on updated key
+            k++;
         }
     } catch (const std::runtime_error & e) {
         std::cout << "Caught runtime_error: " << e.what() << std::endl;
