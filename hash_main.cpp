@@ -522,13 +522,13 @@ int main(int argc, char* argv[]){
     
     file.close();
     delete[] buffer; // Clean up dynamically allocated memory
-    stringTable.display();
+    /* stringTable.display();
     std::cout << "GET RAND VAR" << std::endl;
     std::string key = "\n";
-    std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl; 
+    std::cout << "Key: \'" << key << "\' | Value: \'" <<stringTable.getRandVar(std::string(key)) << "\'" << std::endl;  */
     //===================DONE STORING INPUT=====================//
     // Work on the output
-    /* std::string outString = firstString;
+    std::string outString = firstString;
     std::string windowString = firstString;
     std::string key = windowString;
 
@@ -554,7 +554,7 @@ int main(int argc, char* argv[]){
 
     outString.pop_back(); outString.pop_back();  // Remove any garbage characters
 
-    std::cout << "====Final String====" << std::endl;
+    //std::cout << "====Final String====" << std::endl;
     //std::cout << "'" << outString << "'\n";
 
     // Create and open the output file
@@ -567,6 +567,6 @@ int main(int argc, char* argv[]){
     outfile << outString;
     outfile.close();
     std::cout << "====Export to out.txt file successfully!====" << std::endl;
- */
+
     return 0;
 }

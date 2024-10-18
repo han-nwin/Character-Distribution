@@ -617,12 +617,11 @@ int main(int argc, char* argv[]){
     std::string outString = firstString; // Create an output string and initialize it with firstString
     std::string windowString = firstString; // Window of sliding characters
     std::cout << "Initial Output String: " << outString << std::endl;
+    // Get initial random value based on the first key
+    std::string key = windowString; // Initialize the key with windowString
+    std::string toAdd = stringTree.getRandVar(key); // Get random value for key
 
     try {
-        // Get initial random value based on the first key
-        std::string key = windowString; // Initialize the key with windowString
-        std::string toAdd = stringTree.getRandVar(key); // Get random value for key
-
         while (outString.size() < infileLength) {
             outString += toAdd;          // Append the random value to the output string
             windowString.erase(0, 1);     // Remove the first character of windowString
