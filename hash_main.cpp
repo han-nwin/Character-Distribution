@@ -14,7 +14,9 @@
 #include <cstring> //for cstring operations
 #include <random>
 #include <ctime>
-#include <chrono>  // For measuring time
+#include <stdexcept>  // For std::stoll
+//#include <chrono>  // For measuring time
+
 
 
 /**
@@ -452,15 +454,60 @@ class HashTable{
 
 };
 
-int main(int argc, char* argv[]){
-    if(argc != 2){
-        std::cerr << "Usage: " << argv[0] << " <window-size>" << std::endl;
-        return 1;
+// Helper function to check if input is a valid integer and within the range
+bool isValidInteger(const std::string& input, long long& value) {
+    try {
+        value = std::stoll(input); // Convert the string to a long long
+    } catch (const std::invalid_argument& e) {
+        return false; // If the conversion fails
+    } catch (const std::out_of_range& e) {
+        return false; // If the number is out of range
     }
-    else if(atoi(argv[1]) <= 0){
-        std::cerr << "Invalid Argument: " << argv[0]<< " " << argv[1] << ": <window-size> must be a positive integer" << std::endl;
-        return 1;
+    
+    // Check if the value is within the acceptable range
+    if (value <= 0 || value > 1000000) {
+        return false;
     }
+
+    return true;
+}
+
+//=====MAIN PROGRAM=====//
+int main(){
+    std::string window_size_str, desired_length_str;
+    long long window_size = 0;
+    long long desired_length = 0;
+
+    // Prompt the user for a positive integer for the window size (up to 1,000,000)
+    while (true) {
+        std::cout << "Enter a positive integer for <Window-Size> (<= 1,000,000): ";
+        std::cin >> window_size_str;
+
+        if (!isValidInteger(window_size_str, window_size)) {
+            std::cerr << "Invalid input. Please enter a valid positive integer not greater than 1,000,000." << std::endl;
+        } else {
+            break;  // Valid input
+        }
+    }
+
+    // Prompt the user for a positive integer for the output length (up to 1,000,000)
+    while (true) {
+        std::cout << "Enter a positive integer for <Output-File-Length> (<= 1,000,000): ";
+        std::cin >> desired_length_str;
+
+        if (!isValidInteger(desired_length_str, desired_length)) {
+            std::cerr << "Invalid input. Please enter a valid positive integer not greater than 1,000,000." << std::endl;
+        } else if (desired_length < window_size) {
+            std::cerr << "<Output-File-Length> must be greater or equal <Window-Size>." << std::endl;
+        } else {
+            break;  // Valid input
+        }
+    }
+
+    // If both inputs are valid, proceed with the rest of the program
+    std::cout << std::endl;
+    std::cout << "You entered: <Window-Size>: " << window_size << " | <Output-Length>: " << desired_length << std::endl;
+
     
     std::ifstream file("merchant.txt"); // Open the file
     if (!file) {
@@ -469,16 +516,20 @@ int main(int argc, char* argv[]){
     }
     //==Capture file length to use later==//
     file.seekg(0, std::ios::end); // Seek to the end of the file
-    std::streampos fileSize = file.tellg(); // Get the current position in the file, which is the size
+    std::streampos file_size = file.tellg(); // Get the current position in the file, which is the size
     file.seekg(0, std::ios::beg); // Reset the stream position back to the beginning
-    std::size_t infileLength = static_cast<std::size_t>(fileSize); // Cast fileSize to an integer (int or size_t)
+    std::size_t infile_length = static_cast<std::size_t>(file_size); // Cast fileSize to an integer (int or size_t)
+
+    if(window_size >= infile_length){
+        std::cerr << "Invalid input: <Window-Size> must be smaller than <Input-File-Length> (merchant.txt length)" << std::endl;
+        return 1;
+    }
     //===========================================================//
 
-    HashTable<std::string,std::string> stringTable(infileLength);//Declare the Hash table structure and initialize the length = file length
+    HashTable<std::string,std::string> stringTable(infile_length);//Declare the Hash table structure and initialize the length = file length
     
     char next_char;
     char peek_char;
-    int window_size = atoi(argv[1]);
     char* buffer = new char[window_size + 1]; // Create a buffer to hold the window
     // Pre-fill the buffer with the first 'window_size' characters
     for (int i = 0; i < window_size; i++) {
@@ -541,7 +592,7 @@ int main(int argc, char* argv[]){
     try {
         std::string toAdd = stringTable.getRandVal(key);
 
-        while (outString.length() <= infileLength) {
+        while (outString.length() <= desired_length) {
             // Append to outString
             outString += toAdd;
 
@@ -575,7 +626,7 @@ int main(int argc, char* argv[]){
     // Write outString to the file
     outfile << outString;
     outfile.close();
-    std::cout << "====Export to out.txt file successfully!====" << std::endl;
+    std::cout << "====Result exported to 'out.txt' file successfully!====" << std::endl;
 
     return 0;
 }
