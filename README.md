@@ -14,7 +14,7 @@ The goal of the program is to generate random text based on character distributi
 - **Random Character Generation:** After analyzing the input text, the program stores character sequences and their frequencies. It then generates random text based on these frequencies.
 - **Custom Data Structures:** Two data structures are used to store the character data:
   - An **AVL Tree**: A self-balancing binary search tree.
-  - A **Hash Table**: Using separate chaining to resolve collisions.
+  - A **Hash Table**: Using linear probing to resolve collisions.
 - **Efficient Retrieval:** Both implementations support quick insertion and retrieval of characters based on the learned distributions.
 
 ### Files
@@ -41,6 +41,7 @@ The goal of the program is to generate random text based on character distributi
    ```bash
    ./hash_program
    ```
+   [Google](https://www.google.com)
 
 ### Input
 
