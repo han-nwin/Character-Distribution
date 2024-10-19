@@ -28,8 +28,8 @@ The goal of the program is to generate random text based on character distributi
 
 1. **Compile the program**:
    ```bash
-   g++ avl_main.cpp -o avl_program
-   g++ hash_main.cpp -o hash_program
+   g++ avl_main.cpp -o avl_program -std=c++20
+   g++ hash_main.cpp -o hash_program -std=c++20
    ```
 
 2. **Run the AVL Tree Program**:
