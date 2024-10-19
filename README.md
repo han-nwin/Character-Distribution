@@ -41,7 +41,6 @@ The goal of the program is to generate random text based on character distributi
    ```bash
    ./hash_program
    ```
-   [Google](https://www.google.com)
 
 ### Input
 
